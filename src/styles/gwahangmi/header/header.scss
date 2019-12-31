@@ -1,78 +1,150 @@
 /* ==========================================================================
    BASE ELEMENTS
    ========================================================================== */
-
-   html, body {
-    font-family: $font-base;
-    font-size: $font-size-base;
-}
-
-html, body, h1, h2, h3, h4, h5, h6,
-header, nav, section, article, footer,
-hgroup, ol, ul, li, form, input, textarea,
-p, a, button, span, figure, th, td, dl,
-dd, blockquote, div {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-
-header, nav, section, article,
-footer, hgroup, ol, ul, li {
-    display: inline-block;
-}
-
-a {
-    text-decoration: none;
-}
-
-img {
-    max-width: 100%;
-    vertical-align: middle;
-    border: 0 none;
-}
-
-input {
-    vertical-align: middle;
-    outline: none;
-}
-
-button {
-    cursor: pointer;
-    border: 0 none;
-    overflow: visible;
-    white-space: nowrap;
-
-    &:focus {
-        outline: none;
+   #gwahangmiHeader {
+    background-color: $color-primary;
+    font-family: $font-accent;
+    text-align: center;
+  
+    a {
+      color: $color-accent;
     }
-}
-
-input:focus::-webkit-input-placeholder {
-    color:transparent;
-    vertical-align:middle;
-}
-
-input:focus:-moz-placeholder {
-    color:transparent;
-    vertical-align:middle;
-}
-
-input:focus::-moz-input-placeholder {
-    color:transparent;
-    vertical-align:middle; 
-}
-
-input:focus::-ms-input-placeholder {
-    color:transparent;
-    vertical-align:middle;
-}
-
-.screen-out {
-    overflow: hidden;
-    position: absolute;
-    width: 0;
-    height: 0;
-    line-height: 0;
-    text-indent: -9999px;
-}
+  
+    .wrapper {
+      width: 80%;
+      padding-top: 80px;
+      margin: 0 auto;
+  
+      hgroup {
+        display: block;
+        position: relative;
+        margin-bottom: 60px;
+  
+        .gwahangmi-title {
+          display: block;
+          font-size: 38px;
+          letter-spacing: 20px;
+          padding-left: 20px;
+          margin-bottom: 5px;
+        }
+        .gwahangmi-subtitle {
+          display: block;
+          font-size: 20px;
+          letter-spacing: 1.25px;
+          padding-left: 1.25px;
+        }
+        &:after {
+          content: "";
+          width: 350px;
+          margin-left: -175px;
+          height: 3px;
+          background-color: $color-accent;
+          position: absolute;
+          bottom: -10px;
+        }
+      }
+  
+      .sign-wrap {
+        display: inline-block;
+        position: absolute;
+        margin: 10px;
+        top: 0;
+        right: 0;
+  
+        .sign-in,
+        .sign-up {
+          transition: 0.12s;
+          background-color: $color-primary;
+          border: 3px solid $color-accent;
+          border-radius: 3px;
+          width: 90px;
+          padding: 8px 0px;
+          display: inline-block;
+  
+          &:hover {
+            background-color: $color-accent;
+            color: $color-primary;
+          }
+        }
+  
+        .sign-in {
+          margin-right: 10px;
+        }
+      }
+  
+      .gnb-wrap {
+        display: block;
+        padding: 10px 0px;
+  
+        .gnb {
+          padding: 20px;
+  
+          .item-wrap {
+            display: inline-block;
+            position: relative;
+            margin: 0 50px;
+            height: 35px;
+            width: 120px;
+  
+            &:hover {
+              .subitem-wrap {
+                display: block;
+                animation: slideTopToBottom;
+                animation-duration: 1s;
+                animation-fill-mode: forwards;
+              }
+              .gnb-item {
+                border-bottom: 3px solid $color-accent;
+              }
+            }
+  
+            .gnb-item {
+              transition: 0.12s;
+              font-size: 20px;
+              display: inline-block;
+              height: 35px;
+              line-height: 35px;
+              width: 120px;
+            }
+  
+            .subitem-wrap {
+              overflow: hidden;
+              position: absolute;
+              background-color: $color-primary;
+              display: none;
+              left: 0;
+              height: 0;
+              width: 300px;
+              margin-left: -90px;
+              border: 3px solid $color-accent;
+  
+              .gnb-subitem {
+                transition: 0.12s;
+                display: block;
+                height: 50px;
+                line-height: 50px;
+  
+                &:hover {
+                  background-color: $color-accent;
+                  color: $color-primary;
+                }
+              }
+  
+              .gnb-subitem:not(:last-child) {
+                border-bottom: 2px solid $color-accent;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @keyframes slideTopToBottom {
+    from {
+      height: 0px;
+    }
+  
+    to {
+      height: 206px;
+    }
+  }
