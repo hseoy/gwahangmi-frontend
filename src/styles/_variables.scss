@@ -1,0 +1,28 @@
+
+/* ==========================================================================
+   Variables
+   ========================================================================== */
+
+/*
+   Typography
+   ========================================================================== */
+@font-face                        { font-family: 'TmonMonsori'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff') format('woff'); font-weight: normal; font-style: normal; }
+@font-face                        { font-family: 'NanumBarunpen'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumBarunpen.woff') format('woff'); font-weight: normal; font-style: normal; }
+@import                           url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import                           url(//cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css);
+
+$font-base:                       'NanumSquare', 'Nanum Gothic', 'NanumBarunpen', sans-serif !default;
+$font-accent:                     'TmonMonsori', $font-base;
+
+$font-size-base:                  16px !default;
+
+/*
+   Colors
+   ========================================================================== */
+$color-primary:                   #FFC400 !default;
+$color-accent:                    #000000 !default;
+$color-accent-light:              #353535 !default;
+$color-error:                     #FF6600 !default;
+
+$color-white:                     #FFFFFF !default;
+$color-white-dark:                #DEDEDE !default;
