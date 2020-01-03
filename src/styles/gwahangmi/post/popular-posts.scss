@@ -1,0 +1,134 @@
+#PopularPosts {
+  display: block;
+  position: relative;
+
+  .title-wrap {
+    font-family: $font-accent;
+    text-align: center;
+    padding: 20px 0px;
+    position: relative;
+    border-bottom: 3px dashed $color-accent;
+
+    .title {
+      font-size: 25px;
+      padding-bottom: 10px;
+    }
+
+    .sub-title {
+      font-size: 20px;
+    }
+  }
+
+  .post-wrap {
+    width: 100%;
+    max-width: 1160px;
+    height: 350px;
+    overflow: hidden;
+    padding: 30px 160px 0 160px;
+    margin: 0 auto;
+    position: relative;
+
+    .post-content {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+
+      .scene,
+      .cube,
+      .cube-face {
+        max-width: 850px;
+        width: 814px;
+        height: 320px;
+      }
+
+      .scene {
+        margin: 0 auto;
+        perspective: 1000px;
+
+        .cube {
+          position: relative;
+          transform-style: preserve-3d;
+          transform: translateZ(-405px);
+          transition: transform 1s;
+
+          &.show-front {
+            transform: translateZ(-405px) rotateY(0deg);
+          }
+          &.show-right {
+            transform: translateZ(-405px) rotateY(-90deg);
+          }
+          &.show-back {
+            transform: translateZ(-405px) rotateY(-180deg);
+          }
+          &.show-left {
+            transform: translateZ(-405px) rotateY(90deg);
+          }
+
+          .cube-face {
+            position: absolute;
+            margin: 0 auto;
+            text-align: center;
+            overflow: hidden;
+            background-color: $color-white;
+          }
+
+          .cube-face-front {
+            transform: rotateY(0deg) translateZ(405px);
+          }
+          .cube-face-right {
+            transform: rotateY(90deg) translateZ(405px);
+          }
+          .cube-face-back {
+            transform: rotateY(180deg) translateZ(405px);
+          }
+          .cube-face-left {
+            transform: rotateY(-90deg) translateZ(405px);
+          }
+        }
+      }
+    }
+
+    .prev,
+    .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      padding: 16px;
+      color: $color-accent;
+      font-weight: bold;
+      font-size: 28px;
+      transition: 0.6s;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+    }
+
+    .prev {
+      left: 0;
+    }
+
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+  }
+
+  .post-dots {
+    text-align: center;
+    padding: 30px;
+
+    .dot {
+      cursor: pointer;
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+    .dot-active {
+      background: #1e1e1e;
+    }
+  }
+}

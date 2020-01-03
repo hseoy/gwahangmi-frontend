@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BASE ELEMENTS
+   HEADER
    ========================================================================== */
    #gwahangmiHeader {
     background-color: $color-primary;
@@ -117,6 +117,7 @@
               width: 300px;
               margin-left: -90px;
               border: 3px solid $color-accent;
+              z-index: 999;
   
               .gnb-subitem {
                 transition: 0.12s;
