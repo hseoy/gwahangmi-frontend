@@ -27,13 +27,14 @@ export default {
 </script>
 
 <style lang="scss">
-#home{
+#home {
   .content-wrap {
     width: 80%;
+    max-width: 1240px;
     margin: 0 auto;
 
     .content {
-      padding: 0 40px;
+      padding: 40px 40px 0px 40px;
     }
   }
 }
