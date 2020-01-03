@@ -12,7 +12,11 @@
       </span>
     </h2>
 
-    <div class="post-wrap">
+    <div
+      class="post-wrap"
+      v-on:mouseover="stopSlides"
+      v-on:mouseout="startSlides"
+    >
       <div class="post-content">
         <div class="scene">
           <div class="cube" v-bind:class="getShowCubeSide">
@@ -76,8 +80,8 @@
         </div>
       </div>
 
-      <a class="prev" v-on:click="minusSlides;">&#10094;</a>
-      <a class="next" v-on:click="plusSlides;">&#10095;</a>
+      <a class="prev" v-on:click="minusSlides">&#10094;</a>
+      <a class="next" v-on:click="plusSlides">&#10095;</a>
     </div>
 
     <div class="post-dots">
@@ -125,8 +129,8 @@ export default {
       cubeSidesName: ["left", "front", "right", "back"],
       autoSlide: true,
       playSlide: null,
-      startSlides: null,
-      stopSlides: null
+      startSlide: null,
+      stopSlide: null
     };
   },
   mounted() {
@@ -160,17 +164,25 @@ export default {
   },
   methods: {
     autoSlides() {
-      this.startSlides = function() {
+      this.startSlide = function() {
         this.playSlide = setInterval(this.plusSlides, 3000);
       };
-      this.stopSlides = function() {
+      this.stopSlide = function() {
         clearInterval(this.playSlide);
       };
       if (this.autoSlide) {
         this.startSlides();
       } else {
-        this.stopSLides();
+        this.stopSlides();
       }
+    },
+    stopSlides() {
+      this.autoSlide = false;
+      this.stopSlide();
+    },
+    startSlides() {
+      this.autoSlide = true;
+      this.startSlide();
     },
     plusSlides() {
       this.showSides((this.sideIndex += 1));
