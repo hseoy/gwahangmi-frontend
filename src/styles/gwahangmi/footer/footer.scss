@@ -1,0 +1,31 @@
+#gwahangmiFooter {
+  background-color: $color-primary;
+  font-family: $font-accent;
+  height: 80px;
+  text-align: center;
+  position: relative;
+  margin-top: 50px;
+
+  .outter {
+    display: table;
+    width: 100%;
+    height: 100%;
+    .inner{
+      display: table-cell;
+      vertical-align: middle;
+      .author {
+        color: $color-accent;
+        border: 3px solid $color-accent;
+        margin: 0 2px;
+        border-radius: 20px;
+        padding: 2px 5px;
+        transition: 0.15s;
+
+        &:hover {
+          background-color: $color-accent;
+          color: $color-primary;
+        }
+      }
+    }
+  }
+}
