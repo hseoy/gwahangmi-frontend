@@ -6,6 +6,7 @@
       <div class="content">
         <popular-posts />
         <high-ranks />
+        <today-quize />
       </div>
     </div>
 
@@ -28,6 +29,7 @@
 import GwahangmiHeader from "../components/GwahangmiHeader/GwahangmiHeader.vue";
 import PopularPosts from "../components/Posts/PopularPosts.vue";
 import HighRanks from "../components/Rank/HighRanks.vue";
+import TodayQuize from "../components/Quize/todayQuize.vue";
 import { VueEditor } from "vue2-editor";
 
 export default {
@@ -36,6 +38,7 @@ export default {
     "gwahangmi-header": GwahangmiHeader,
     "popular-posts": PopularPosts,
     "high-ranks": HighRanks,
+    "today-quize": TodayQuize,
     "vue-editor": VueEditor
   },
   data() {
