@@ -1,5 +1,9 @@
 <template>
-  <div id="PopularPosts">
+  <div
+    id="PopularPosts"
+    v-on:mouseover="stopSlides"
+    v-on:mouseout="startSlides"
+  >
     <h2 class="title-wrap">
       <span class="title">
         인기글
@@ -12,11 +16,7 @@
       </span>
     </h2>
 
-    <div
-      class="post-wrap"
-      v-on:mouseover="stopSlides"
-      v-on:mouseout="startSlides"
-    >
+    <div class="post-wrap">
       <div class="post-content">
         <div class="scene">
           <div class="cube" v-bind:class="getShowCubeSide">
