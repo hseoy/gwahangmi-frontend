@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  outputDir: path.resolve(__dirname, "../gwahangmi-backend/public/"),
+  outputDir: path.resolve(__dirname, "../gwahangmi/"),
   devServer: {
     proxy: {
       // proxyTable 설정
