@@ -1,0 +1,26 @@
+.md-editor {
+  height: calc(100% - 272px);
+  position: relative;
+  padding: 0 10px;
+
+  .md-viewer-cont {
+    width: 50%;
+    height: 100%;
+    border: 2px solid $color-accent;
+
+    &.input {
+      float: left;
+      resize: none;
+      padding: 20px;
+      border-right: none;
+    }
+
+    &.preview {
+      margin-left: 50%;
+      width: 50%;
+      height: 100%;
+      padding: 20px;
+      overflow: scroll;
+    }
+  }
+}
