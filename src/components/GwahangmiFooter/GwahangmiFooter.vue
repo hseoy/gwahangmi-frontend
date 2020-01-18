@@ -10,7 +10,7 @@
             rel="noopener"
             href="https://github.com/yunseo-h68"
             >Yunseo Hwang</a
-          >. All rights reserved.
+          >. All rights reserved. Demo용 계정(testId, testPw)
         </p>
       </div>
     </div>
