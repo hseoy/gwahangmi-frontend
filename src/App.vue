@@ -3,13 +3,14 @@
     <router-view />
     <gwahangmi-footer />
 
-    <button class="editor-trigger" @click="openPostEditor">
+    <button class="editor-trigger" @click="openPostEditor" v-if="getIsAuth">
       <span class="editor-trigger-text" data-title="나도 글쓰기!">
         과학을 좋아한다면?
       </span>
     </button>
 
     <post-editor
+      v-if="getIsAuth"
       :height="computedEditorHeight"
       :display="computedEditorDisplay"
       v-on:close-editor="closePostEditor"
@@ -20,6 +21,7 @@
 <script>
 import GwahangmiFooter from "@/components/GwahangmiFooter/GwahangmiFooter.vue";
 import PostEditor from "@/components/Posts/PostEditor.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "App",
@@ -35,6 +37,10 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["getUser"]),
+    getIsAuth() {
+      return this.getUser.isAuth;
+    },
     computedEditorHeight() {
       return this.editorHeight;
     },
