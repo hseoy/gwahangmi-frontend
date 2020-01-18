@@ -10,7 +10,8 @@
             rel="noopener"
             href="https://github.com/yunseo-h68"
             >Yunseo Hwang</a
-          >. All rights reserved. Demo용 계정(testId, testPw)
+          >. All rights reserved.
+          <span v-if="getIsAuth">Demo용 계정(testId, testPw)</span>
         </p>
       </div>
     </div>
@@ -18,8 +19,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  name: "GwahangmiFooter"
+  name: "GwahangmiFooter",
+  computed: {
+    ...mapGetters(["getUser"]),
+    getIsAuth() {
+      return this.getUser.isAuth;
+    }
+  }
 };
 </script>
 
