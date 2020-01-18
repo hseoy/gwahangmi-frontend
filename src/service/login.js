@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const reqLogin = (uid, pw) =>
-  axios.post("api/user/login", {
+  axios.post("api/account/login", {
     uid: uid,
     pw: pw
   });
@@ -11,9 +11,9 @@ export default {
     const loginResponse = await reqLogin(uid, pw);
 
     return {
-      isSuccess: loginResponse.data.isSuccess,
-      uname: loginResponse.data.uname,
-      authMsg: loginResponse.data.authMsg
+      isAuth: loginResponse.data.data.isSuccess,
+      uname: loginResponse.data.data.uname,
+      authState: loginResponse.data.data.message
     };
   }
 };

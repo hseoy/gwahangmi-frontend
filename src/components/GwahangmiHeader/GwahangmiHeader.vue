@@ -11,10 +11,10 @@
       </hgroup>
 
       <div class="sign-wrap">
-        <a class="sign-in" href="#">
+        <a class="sign-in" href="/login">
           로그인
         </a>
-        <a class="sign-up" href="#">
+        <a class="sign-up" href="/signup">
           회원가입
         </a>
       </div>

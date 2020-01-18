@@ -41,7 +41,7 @@ export default {
     margin: 0 auto;
 
     .content {
-      padding: 40px 40px 0px 40px;
+      padding: 40px 40px 50px 40px;
     }
   }
 }

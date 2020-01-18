@@ -10,8 +10,11 @@ const set = {
     uname: ({ commit }, data) => {
       commit(USER.UNAME, data);
     },
-    authMsg: ({ commit }, data) => {
-      commit(USER.AUTH_MSG, data);
+    utype: ({ commit }, data) => {
+      commit(USER.UTYPE, data);
+    },
+    authState: ({ commit }, data) => {
+      commit(USER.AUTH_STATE, data);
     },
     isAuth: ({ commit }, data) => {
       commit(USER.IS_AUTH, data);
@@ -24,20 +27,30 @@ const set = {
 
 const processLoginResponse = (store, response) => {
   set.user.isAuth(store, response.isAuth);
-  set.user.authMsg(store, response.authMsg);
+  set.user.authState(store, response.authState);
   if (response.isAuth) {
     set.user.uname(store, response.uname);
-    set.user.isAdmin(store, isAdmin(response.utype));
+    set.user.utype(store, getUType(response.uname));
+    set.user.isAdmin(store, isAdmin(response.uname));
   }
+  return response.isAuth;
 };
 
 const isAdmin = utype => {
-  return utype === "admin" || utype == "dev";
+  return utype === "admin" || utype === "dev";
 };
 
+const getUType = uname => {
+  if (uname === "admin" || uname === "dev") {
+    return uname;
+  }
+  return "user";
+};
 export default {
   async login(store, { uid, pw }) {
     const loginResponse = await api.login(uid, pw);
-    processLoginResponse(store, loginResponse);
+    if (processLoginResponse(store, loginResponse)) {
+      set.user.uid(store, uid);
+    }
   }
 };
