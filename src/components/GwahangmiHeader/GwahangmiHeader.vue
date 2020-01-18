@@ -9,7 +9,7 @@
           과학의 아름다움을 나누는 커뮤니티
         </h2>
       </hgroup>
-      <span v-if="getIsAuth">
+      <span v-if="!getIsAuth">
         <div class="sign-wrap">
           <a class="sign-in" href="/login">
             로그인
