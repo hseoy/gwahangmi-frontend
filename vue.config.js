@@ -1,6 +1,7 @@
 const path = require("path");
 
 module.exports = {
+  // publicPath: "/gwahangmi-frontend/",
   outputDir: path.resolve(__dirname, "../gwahangmi/"),
   devServer: {
     proxy: {
