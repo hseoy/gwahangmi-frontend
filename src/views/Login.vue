@@ -90,7 +90,7 @@ export default {
       }
     },
     async guestLogin() {
-      await this.login({ uid: "testId", pw: "testPw" });
+      await this.login({ uid: "guest", pw: "guest" });
       if (this.getUser.isAuth === true) {
         this.$router.push({ name: "home" });
       }

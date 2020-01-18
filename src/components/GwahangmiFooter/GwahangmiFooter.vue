@@ -11,7 +11,7 @@
             href="https://github.com/yunseo-h68"
             >Yunseo Hwang</a
           >. All rights reserved.
-          <span v-if="!getIsAuth">Demo용 계정(testId, testPw)</span>
+          <span v-if="!getIsAuth">Guest 계정(guest, guest)</span>
         </p>
       </div>
     </div>

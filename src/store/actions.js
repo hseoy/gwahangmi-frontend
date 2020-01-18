@@ -25,32 +25,41 @@ const set = {
   }
 };
 
-const processLoginResponse = (store, response) => {
+const processSignResponse = (store, response) => {
   set.user.isAuth(store, response.isAuth);
   set.user.authState(store, response.authState);
   if (response.isAuth) {
     set.user.uname(store, response.uname);
-    set.user.utype(store, getUType(response.uname));
-    set.user.isAdmin(store, isAdmin(response.uname));
   }
   return response.isAuth;
 };
 
 const isAdmin = utype => {
-  return utype === "Admin" || utype === "Dev";
+  return utype === "admin" || utype === "dev";
 };
 
 const getUType = uname => {
-  if (uname === "Admin" || uname === "Dev" || uname === "Guest") {
+  if (uname === "admin" || uname === "dev" || uname === "guest") {
     return uname;
   }
-  return "User";
+  return "user";
 };
+
 export default {
   async login(store, { uid, pw }) {
     const loginResponse = await api.login(uid, pw);
-    if (processLoginResponse(store, loginResponse)) {
+    if (processSignResponse(store, loginResponse)) {
       set.user.uid(store, uid);
+      set.user.isAdmin(store, isAdmin(uid));
+      set.user.utype(store, getUType(uid));
+    }
+  },
+  async signup(store, { uname, uid, pw }) {
+    const signupResponse = await api.signup(uname, uid, pw);
+    if (processSignResponse(store, signupResponse)) {
+      set.user.uid(store, uid);
+      set.user.isAdmin(store, isAdmin(uid));
+      set.user.utype(store, getUType(uid));
     }
   }
 };

@@ -73,7 +73,7 @@
                 </div>
                 <input
                   type="password"
-                  v-model="user.pw"
+                  v-model="user.pwConfirm"
                   class="signup-input"
                   title="PW를 다시 입력해주세요"
                   autocomplete="off"
@@ -108,7 +108,8 @@ export default {
       user: {
         uname: "",
         id: "",
-        pw: ""
+        pw: "",
+        pwConfirm: ""
       }
     };
   },
@@ -116,9 +117,18 @@ export default {
     ...mapGetters(["getUser"])
   },
   methods: {
-    ...mapActions(["login"]),
+    ...mapActions(["signup"]),
     async onSubmit() {
-      await this.login({ uid: this.user.id, pw: this.user.pw });
+      if (this.user.pw != this.user.pwConfirm) {
+        console.log("패스워드 일치하지 않음");
+        return;
+      }
+      await this.signup({
+        uname: this.user.uname,
+        uid: this.user.id,
+        pw: this.user.pw
+      });
+      console.log(this.getUser);
       if (this.getUser.isAuth === true) {
         this.$router.push({ name: "home" });
       }
