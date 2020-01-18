@@ -85,6 +85,11 @@
                   회원가입
                 </button>
               </div>
+              <div class="signup-login-wrap">
+                <div class="signup-login-container">
+                  <a href="/login" class="login-link">이미 계정이 있나요?</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -231,6 +236,28 @@ export default {
               font-size: 20px;
               font-family: $font-accent;
               color: $color-white;
+            }
+          }
+        }
+      }
+      .signup-login-wrap {
+        .signup-login-container {
+          text-align: right;
+          width: 400px;
+          margin: 0 auto;
+
+          .login-link {
+            font-family: $font-accent;
+            color: $color-accent;
+            background-color: $color-primary;
+            border: 3px solid $color-accent;
+            border-radius: 20px;
+            padding: 0 10px;
+            transition: 0.15s;
+
+            &:hover {
+              background-color: $color-accent;
+              color: $color-primary;
             }
           }
         }
