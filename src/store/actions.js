@@ -37,14 +37,14 @@ const processLoginResponse = (store, response) => {
 };
 
 const isAdmin = utype => {
-  return utype === "admin" || utype === "dev";
+  return utype === "Admin" || utype === "Dev";
 };
 
 const getUType = uname => {
-  if (uname === "admin" || uname === "dev") {
+  if (uname === "Admin" || uname === "Dev" || uname === "Guest") {
     return uname;
   }
-  return "user";
+  return "User";
 };
 export default {
   async login(store, { uid, pw }) {

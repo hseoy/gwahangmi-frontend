@@ -52,6 +52,9 @@
             </div>
             <div class="login-signup-wrap">
               <div class="login-signup-container">
+                <button class="guest-login" v-on:click="guestLogin">
+                  게스트로 로그인
+                </button>
                 <a href="/signup" class="signup-link">계정이 없나요?</a>
               </div>
             </div>
@@ -82,6 +85,12 @@ export default {
     ...mapActions(["login"]),
     async onSubmit() {
       await this.login({ uid: this.user.id, pw: this.user.pw });
+      if (this.getUser.isAuth === true) {
+        this.$router.push({ name: "home" });
+      }
+    },
+    async guestLogin() {
+      await this.login({ uid: "testId", pw: "testPw" });
       if (this.getUser.isAuth === true) {
         this.$router.push({ name: "home" });
       }
@@ -209,7 +218,13 @@ export default {
           width: 400px;
           margin: 0 auto;
 
-          .signup-link {
+          .guest-login {
+            float: left;
+            font-size: 16px;
+          }
+
+          .signup-link,
+          .guest-login {
             font-family: $font-accent;
             color: $color-accent;
             background-color: $color-primary;
@@ -217,6 +232,7 @@ export default {
             border-radius: 20px;
             padding: 0 10px;
             transition: 0.15s;
+            font-size: 16px;
 
             &:hover {
               background-color: $color-accent;
