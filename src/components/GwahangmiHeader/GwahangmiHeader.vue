@@ -9,16 +9,16 @@
           과학의 아름다움을 나누는 커뮤니티
         </h2>
       </hgroup>
-
-      <div class="sign-wrap">
-        <a class="sign-in" href="/login">
-          로그인
-        </a>
-        <a class="sign-up" href="/signup">
-          회원가입
-        </a>
-      </div>
-
+      <span v-if="getIsAuth">
+        <div class="sign-wrap">
+          <a class="sign-in" href="/login">
+            로그인
+          </a>
+          <a class="sign-up" href="/signup">
+            회원가입
+          </a>
+        </div>
+      </span>
       <nav class="gnb-wrap">
         <div class="gnb">
           <div class="item-wrap">
@@ -45,6 +45,18 @@
   </div>
 </template>
 
+<script>
+import { mapGetters } from "vuex";
+export default {
+  name: "GwahangmiHeader",
+  computed: {
+    ...mapGetters(["getUser"]),
+    getIsAuth() {
+      return this.getUser.isAuth;
+    }
+  }
+};
+</script>
 <style lang="scss">
 @import "@/styles/gwahangmi/header/header.scss";
 </style>
