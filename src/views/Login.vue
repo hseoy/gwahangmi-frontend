@@ -55,7 +55,12 @@
                 <button class="guest-login" v-on:click="guestLogin">
                   게스트로 로그인
                 </button>
-                <a href="/signup" class="signup-link">계정이 없나요?</a>
+                <a
+                  href="javascript:void(0)"
+                  @click="goSignup"
+                  class="signup-link"
+                  >계정이 없나요?</a
+                >
               </div>
             </div>
           </div>
@@ -94,6 +99,9 @@ export default {
       if (this.getUser.isAuth === true) {
         this.$router.push({ name: "home" });
       }
+    },
+    goSignup() {
+      this.$router.push("signup");
     }
   }
 };

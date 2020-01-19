@@ -1,21 +1,42 @@
 import axios from "axios";
 
 const userAPI = {
-  get: uid => axios.get("/api/account/users/" + uid)
+  get: uid => axios.get("/api/account/users/" + uid),
+  put: (uid, uname) =>
+    axios.put("/api/account/users/" + uid, {
+      uname: uname
+    }),
+  delete: uid => axios.delete("/api/account/users/" + uid)
 };
 
 export default {
-  user: {
-    async get(uid) {
-      const signupResponse = await userAPI.get(uid);
+  delete: async uid => {
+    const userResponse = await userAPI.delete(uid);
 
-      return {
-        isAuth: signupResponse.data.data.uid,
-        uname: signupResponse.data.data.uname,
-        profileImg: signupResponse.data.data.profileImg,
-        point: signupResponse.data.data.point,
-        postCnt: signupResponse.data.data.postCnt
-      };
-    }
+    return {
+      uid: userResponse.data.data.uid,
+      isSuccess: userResponse.data.data.isSuccess,
+      message: userResponse.data.data.message
+    };
+  },
+  put: async (uid, uname) => {
+    const userResponse = await userAPI.put(uid, uname);
+
+    return {
+      uid: userResponse.data.data.uid,
+      isSuccess: userResponse.data.data.isSuccess,
+      message: userResponse.data.data.message
+    };
+  },
+  get: async uid => {
+    const userResponse = await userAPI.get(uid);
+
+    return {
+      isAuth: userResponse.data.data.uid,
+      uname: userResponse.data.data.uname,
+      profileImg: userResponse.data.data.profileImg,
+      point: userResponse.data.data.point,
+      postCnt: userResponse.data.data.postCnt
+    };
   }
 };

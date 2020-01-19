@@ -87,7 +87,12 @@
               </div>
               <div class="signup-login-wrap">
                 <div class="signup-login-container">
-                  <a href="/login" class="login-link">이미 계정이 있나요?</a>
+                  <a
+                    href="javascript:void(0)"
+                    @click="goLogin"
+                    class="login-link"
+                    >이미 계정이 있나요?</a
+                  >
                 </div>
               </div>
             </div>
@@ -120,7 +125,6 @@ export default {
     ...mapActions(["signup"]),
     async onSubmit() {
       if (this.user.pw != this.user.pwConfirm) {
-        console.log("패스워드 일치하지 않음");
         return;
       }
       await this.signup({
@@ -128,10 +132,12 @@ export default {
         uid: this.user.id,
         pw: this.user.pw
       });
-      console.log(this.getUser);
       if (this.getUser.isAuth === true) {
         this.$router.push({ name: "home" });
       }
+    },
+    goLogin() {
+      this.$router.push("login");
     }
   }
 };
@@ -186,7 +192,7 @@ export default {
             margin-bottom: 0;
           }
           .box-title-wrap {
-            width: 100px;
+            width: 90px;
             height: 100%;
             float: left;
             margin: 0 20px;
@@ -204,8 +210,8 @@ export default {
           .signup-input {
             display: block;
             margin-right: 20px;
-            width: calc(100% - 160px);
-            margin-left: 140px;
+            width: calc(100% - 150px);
+            margin-left: 120px;
             height: 100%;
             font-family: $font-accent;
             border: none;

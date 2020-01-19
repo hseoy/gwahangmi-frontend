@@ -43,14 +43,22 @@
           bottom: -10px;
         }
       }
-  
+      
+      .sign-ok {
+        margin: 10px 20px 10px 10px;
+      }
+
       .sign-wrap {
+        margin: 10px;
+      }
+
+      .sign-wrap,
+      .sign-ok {
         display: inline-block;
         position: absolute;
-        margin: 10px;
         top: 0;
         right: 0;
-  
+
         .sign-in,
         .sign-up {
           transition: 0.12s;
@@ -70,8 +78,38 @@
         .sign-in {
           margin-right: 10px;
         }
+
+        .sign-ok-profile {
+          display: inline-block;
+          font-family: $font-accent;
+          color: $color-accent;
+          border: 3px solid $color-accent;
+          background-color: $color-primary;
+          transition: 0.2s;
+
+          .profile-img {
+            float: left;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 5px;
+            overflow: hidden;
+          }
+          .user-name {
+            display: inline-block;
+            padding: 0 25px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 20px;
+          }
+
+          &:hover {
+            background-color: $color-accent;
+            color: $color-primary;
+          }
+        }
       }
-  
+
       .gnb-wrap {
         display: block;
         padding: 10px 0px;

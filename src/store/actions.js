@@ -49,12 +49,54 @@ export default {
     const loginResponse = await api.login(uid, pw);
     processResponse.sign(store, { uid, pw }, loginResponse);
   },
+  async auth(store, { uid, pw }) {
+    const loginResponse = await api.login(uid, pw);
+    return loginResponse.isAuth;
+  },
   async signup(store, { uname, uid, pw }) {
     const signupResponse = await api.signup(uname, uid, pw);
     processResponse.sign(store, { uid, pw }, signupResponse);
   },
-  getUserInfo(store, { uid }) {
-    const userResponse = getUserInfo(uid);
+  async putUser(store, { uid, uname }) {
+    const userResponse = await api.user.put(uid, uname);
+    if (userResponse.isSuccess) {
+      set.user(store, USER.UNAME, uname);
+    }
+    return userResponse;
+  },
+  async userLeave(store, { uid }) {
+    const userResponse = await api.user.delete(uid);
+    return userResponse;
+  },
+  async getUserInfo(store, { uid }) {
+    const userResponse = await getUserInfo(uid);
     processResponse.user(store, userResponse);
+  },
+  logout(store) {
+    set.user(store, USER.UID, "");
+    set.user(store, USER.UNAME, "");
+    set.user(store, USER.UTYPE, "");
+    set.user(store, USER.AUTH_STATE, "");
+    set.user(store, USER.PROFILE_IMG, "");
+    set.user(store, USER.POINT, 0);
+    set.user(store, USER.POST_CNT, 0);
+    set.user(store, USER.IS_AUTH, false);
+    set.user(store, USER.IS_ADMIN, false);
+  },
+  async profileGet(uid) {
+    const profileResponse = await api.profile.get(uid);
+    return profileResponse;
+  },
+  async profilePost(formData) {
+    const profileResponse = await api.profile.post(formData);
+    return profileResponse;
+  },
+  async profilePut(formData) {
+    const profileResponse = await api.profile.put(formData);
+    return profileResponse;
+  },
+  async profileDelete(uid) {
+    const profileResponse = await api.profile.delete(uid);
+    return profileResponse;
   }
 };
