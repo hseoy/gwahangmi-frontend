@@ -26,7 +26,12 @@
                   정답입니다! <span v-if="getIsAuth">+5</span>
                 </h1>
                 <div class="quize-login-wrap">
-                  <a href="/login" class="quize-login" v-if="!getIsAuth">
+                  <a
+                    href="javascript:void(0)"
+                    class="quize-login"
+                    @click="goLogin"
+                    v-if="!getIsAuth"
+                  >
                     로그인하고 더 많은 거 보러 가기!
                   </a>
                   <a href="#" class="quize-login" v-if="getIsAuth">
@@ -96,6 +101,9 @@ export default {
       } else {
         this.pass = false;
       }
+    },
+    goLogin() {
+      this.$router.push("login");
     }
   }
 };
