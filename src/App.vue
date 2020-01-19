@@ -1,9 +1,17 @@
 <template>
   <div id="app" :class="{ notScroll: isEditorOpen }">
+    <button class="go-home-button" @click="goHome" v-if="computedHomeButton">
+      HOME으로
+    </button>
+
     <router-view />
     <gwahangmi-footer />
 
-    <button class="editor-trigger" @click="openPostEditor" v-if="getIsAuth">
+    <button
+      class="editor-trigger"
+      @click="openPostEditor"
+      v-if="computedEditorTrigger"
+    >
       <span class="editor-trigger-text" data-title="나도 글쓰기!">
         과학을 좋아한다면?
       </span>
@@ -46,6 +54,22 @@ export default {
     },
     computedEditorDisplay() {
       return this.editorDisplay;
+    },
+    computedEditorTrigger() {
+      if (this.getIsAuth) {
+        if (
+          this.$route.path === "/profile" ||
+          this.$route.path === "/login" ||
+          this.$route.path === "/signup"
+        ) {
+          return false;
+        }
+        return true;
+      }
+      return false;
+    },
+    computedHomeButton() {
+      return !(this.$route.path === "/");
     }
   },
   methods: {
@@ -58,12 +82,35 @@ export default {
       this.editorHeight = "height: 0%";
       this.editorDisplay = "display: none";
       this.isEditorOpen = false;
+    },
+    goHome() {
+      this.$router.push({ name: "home" });
     }
   }
 };
 </script>
 
 <style lang="scss">
+.go-home-button {
+  display: inline-block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 10px;
+  background-color: $color-primary;
+  color: $color-accent;
+  font-family: $font-accent;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: 3px solid $color-accent;
+  transition: 0.2s;
+  z-index: 999;
+
+  &:hover {
+    background-color: $color-accent;
+    color: $color-primary;
+  }
+}
 .editor-trigger {
   font-family: $font-accent;
   font-size: 1.2em;
