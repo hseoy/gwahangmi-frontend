@@ -12,6 +12,9 @@ const state = {
     uname: "",
     utype: "",
     authState: "",
+    profileImg: "",
+    point: 0,
+    postCnt: 0,
     isAuth: false,
     isAdmin: false
   }

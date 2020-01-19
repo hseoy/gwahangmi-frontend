@@ -3,35 +3,29 @@ import api from "../service";
 import { USER } from "./mutation_types";
 
 const set = {
-  user: {
-    uid: ({ commit }, data) => {
-      commit(USER.UID, data);
-    },
-    uname: ({ commit }, data) => {
-      commit(USER.UNAME, data);
-    },
-    utype: ({ commit }, data) => {
-      commit(USER.UTYPE, data);
-    },
-    authState: ({ commit }, data) => {
-      commit(USER.AUTH_STATE, data);
-    },
-    isAuth: ({ commit }, data) => {
-      commit(USER.IS_AUTH, data);
-    },
-    isAdmin: ({ commit }, data) => {
-      commit(USER.IS_ADMIN, data);
-    }
+  user: ({ commit }, mutationType, data) => {
+    commit(mutationType, data);
   }
 };
 
-const processSignResponse = (store, response) => {
-  set.user.isAuth(store, response.isAuth);
-  set.user.authState(store, response.authState);
-  if (response.isAuth) {
-    set.user.uname(store, response.uname);
+const processResponse = {
+  sign: (store, user, response) => {
+    set.user(store, USER.IS_AUTH, response.isAuth);
+    set.user(store, USER.AUTH_STATE, response.authState);
+    if (response.isAuth) {
+      set.user(store, USER.UNAME, response.uname);
+      set.user(store, USER.UID, user.uid);
+      set.user(store, USER.IS_ADMIN, isAdmin(user.uid));
+      set.user(store, USER.UTYPE, getUType(user.uid));
+    }
+  },
+  user: (store, response) => {
+    set.user(store, USER.PROFILE_IMG, response.profileImg);
+    set.user(store, USER.POINT, response.point);
+    set.user(store, USER.POST_CNT, response.postCnt);
+    set.user(store, USER.UNAME, response.uname);
+    set.user(store, USER.UID, response.uid);
   }
-  return response.isAuth;
 };
 
 const isAdmin = utype => {
@@ -45,21 +39,22 @@ const getUType = uname => {
   return "user";
 };
 
+const getUserInfo = async uid => {
+  const userResponse = await api.user.get(uid);
+  return userResponse;
+};
+
 export default {
   async login(store, { uid, pw }) {
     const loginResponse = await api.login(uid, pw);
-    if (processSignResponse(store, loginResponse)) {
-      set.user.uid(store, uid);
-      set.user.isAdmin(store, isAdmin(uid));
-      set.user.utype(store, getUType(uid));
-    }
+    processResponse.sign(store, { uid, pw }, loginResponse);
   },
   async signup(store, { uname, uid, pw }) {
     const signupResponse = await api.signup(uname, uid, pw);
-    if (processSignResponse(store, signupResponse)) {
-      set.user.uid(store, uid);
-      set.user.isAdmin(store, isAdmin(uid));
-      set.user.utype(store, getUType(uid));
-    }
+    processResponse.sign(store, { uid, pw }, signupResponse);
+  },
+  getUserInfo(store, { uid }) {
+    const userResponse = getUserInfo(uid);
+    processResponse.user(store, userResponse);
   }
 };

@@ -14,6 +14,15 @@ export default {
   [types.USER.AUTH_STATE](state, authState) {
     state.user.authState = authState;
   },
+  [types.USER.PROFILE_IMG](state, profileImg) {
+    state.user.profileImg = profileImg;
+  },
+  [types.USER.POINT](state, point) {
+    state.user.point = point;
+  },
+  [types.USER.POST_CNT](state, postCnt) {
+    state.user.postCnt = postCnt;
+  },
   [types.USER.IS_AUTH](state, isAuth) {
     state.user.isAuth = isAuth;
   },
