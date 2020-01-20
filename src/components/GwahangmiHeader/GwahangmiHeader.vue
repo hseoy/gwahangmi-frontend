@@ -21,8 +21,9 @@
         <a class="sign-ok-profile" href="javascript:void(0)" @click="goProfile">
           <div class="profile-img">
             <img
-              src="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008"
+              :src="getProfileImgFile"
               width="100%"
+              height="100%"
               alt="profile img"
             />
           </div>
@@ -61,10 +62,30 @@
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "GwahangmiHeader",
+  data() {
+    return {
+      profileImgFile: ""
+    };
+  },
+  watch: {
+    $router: "fetchData"
+  },
   computed: {
     ...mapGetters(["getUser"]),
+    getProfileImgFile() {
+      if (this.getUser.profileImg === "profile_default_gwahangmi.jpg") {
+        return "https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008";
+      }
+      if (this.profileImgFile === "") {
+        this.fetchData();
+      }
+      return this.profileImgFile;
+    },
     getIsAuth() {
       return this.getUser.isAuth;
+    },
+    getUID() {
+      return this.getUser.uid;
     },
     getUname() {
       return this.getUser.uname;
@@ -72,6 +93,20 @@ export default {
   },
   methods: {
     ...mapActions(["logout"]),
+    ...mapActions(["profileGetFile"]),
+    ...mapActions(["getUserInfo"]),
+    async fetchData() {
+      if (this.getUser.isAuth) {
+        await this.getUserInfo({ uid: this.getUID });
+        if (this.getUser.profileImg != "profile_default_gwahangmi.jpg") {
+          const res = await this.profileGetFile({ uid: this.getUID });
+          this.profileImgFile = res;
+        } else {
+          this.profileImgFile =
+            "https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008";
+        }
+      }
+    },
     goProfile() {
       this.$router.push("profile");
     },
