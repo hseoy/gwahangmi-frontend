@@ -22,20 +22,24 @@
       :height="computedEditorHeight"
       :display="computedEditorDisplay"
       v-on:close-editor="closePostEditor"
-    ></post-editor>
+    />
+    <gwahangmi-notice />
   </div>
 </template>
 
 <script>
 import GwahangmiFooter from "@/components/GwahangmiFooter/GwahangmiFooter.vue";
 import PostEditor from "@/components/Posts/PostEditor.vue";
+import GwahangmiNotice from "@/components/GwahangmiNotice/GwahangmiNotice.vue";
+
 import { mapGetters } from "vuex";
 
 export default {
   name: "App",
   components: {
     "gwahangmi-footer": GwahangmiFooter,
-    "post-editor": PostEditor
+    "post-editor": PostEditor,
+    "gwahangmi-notice": GwahangmiNotice
   },
   data() {
     return {

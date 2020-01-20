@@ -16,7 +16,35 @@ const state = {
     point: 0,
     postCnt: 0,
     isAuth: false,
-    isAdmin: false
+    isAdmin: false,
+    profileChange: {
+      formData: "",
+      uname: ""
+    }
+  },
+  rank: {
+    top: {
+      fir: "",
+      sec: "",
+      thir: ""
+    }
+  },
+  notice: {
+    state: false,
+    title: "",
+    body: "",
+    button: "",
+    style: {
+      height: "",
+      display: ""
+    }
+  },
+  post: {
+    pre: {
+      category: "",
+      title: "",
+      content: ""
+    }
   }
 };
 

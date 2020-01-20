@@ -1,9 +1,18 @@
 import api from "../service";
 
-import { USER } from "./mutation_types";
+import { USER, RANK, NOTICE, POST } from "./mutation_types";
 
 const set = {
   user: ({ commit }, mutationType, data) => {
+    commit(mutationType, data);
+  },
+  rank: ({ commit }, mutationType, data) => {
+    commit(mutationType, data);
+  },
+  post: ({ commit }, mutationType, data) => {
+    commit(mutationType, data);
+  },
+  notice: ({ commit }, mutationType, data) => {
     commit(mutationType, data);
   }
 };
@@ -24,7 +33,6 @@ const processResponse = {
     set.user(store, USER.POINT, response.point);
     set.user(store, USER.POST_CNT, response.postCnt);
     set.user(store, USER.UNAME, response.uname);
-    set.user(store, USER.UID, response.uid);
   }
 };
 
@@ -44,10 +52,32 @@ const getUserInfo = async uid => {
   return userResponse;
 };
 
+const setNotice = (store, state, title, body, button, style) => {
+  set.notice(store, NOTICE.STATE, state);
+  set.notice(store, NOTICE.TITLE, title);
+  set.notice(store, NOTICE.BODY, body);
+  set.notice(store, NOTICE.BUTTON, button);
+  set.notice(store, NOTICE.STYLE.HEIGHT, style.height);
+  set.notice(store, NOTICE.STYLE.DISPLAY, style.display);
+};
+
 export default {
+  /* SIGN */
   async login(store, { uid, pw }) {
     const loginResponse = await api.login(uid, pw);
     processResponse.sign(store, { uid, pw }, loginResponse);
+  },
+  logout(store) {
+    setNotice(store, false, "", "", "", { height: "0%", display: "none" });
+    set.user(store, USER.UID, "");
+    set.user(store, USER.UNAME, "");
+    set.user(store, USER.UTYPE, "");
+    set.user(store, USER.AUTH_STATE, "");
+    set.user(store, USER.PROFILE_IMG, "");
+    set.user(store, USER.POINT, 0);
+    set.user(store, USER.POST_CNT, 0);
+    set.user(store, USER.IS_AUTH, false);
+    set.user(store, USER.IS_ADMIN, false);
   },
   async auth(store, { uid, pw }) {
     const loginResponse = await api.login(uid, pw);
@@ -56,6 +86,11 @@ export default {
   async signup(store, { uname, uid, pw }) {
     const signupResponse = await api.signup(uname, uid, pw);
     processResponse.sign(store, { uid, pw }, signupResponse);
+  },
+  /* USERS */
+  async usersGet(store, { limit, point, post, sort }) {
+    const usersResponse = await api.users.get(limit, point, post, sort);
+    return usersResponse;
   },
   async putUser(store, { uid, uname }) {
     const userResponse = await api.user.put(uid, uname);
@@ -68,35 +103,84 @@ export default {
     const userResponse = await api.user.delete(uid);
     return userResponse;
   },
+  /* USER */
   async getUserInfo(store, { uid }) {
     const userResponse = await getUserInfo(uid);
     processResponse.user(store, userResponse);
+    set.user(store, USER.UID, uid);
   },
-  logout(store) {
-    set.user(store, USER.UID, "");
-    set.user(store, USER.UNAME, "");
-    set.user(store, USER.UTYPE, "");
-    set.user(store, USER.AUTH_STATE, "");
-    set.user(store, USER.PROFILE_IMG, "");
-    set.user(store, USER.POINT, 0);
-    set.user(store, USER.POST_CNT, 0);
-    set.user(store, USER.IS_AUTH, false);
-    set.user(store, USER.IS_ADMIN, false);
+  preProfileChange(store, { formData, uname }) {
+    set.user(store, USER.PROFILE_CHANGE.FORM_DATA, formData);
+    set.user(store, USER.PROFILE_CHANGE.UNAME, uname);
   },
-  async profileGet(uid) {
+  /* RANK */
+  userHighRankTop3(store, { users }) {
+    set.rank(store, RANK.TOP[0], users[0]);
+    set.rank(store, RANK.TOP[1], users[1]);
+    set.rank(store, RANK.TOP[2], users[2]);
+  },
+  /* PROFILE */
+  async profileGetFile(store, { uid }) {
+    const profileImgFile = await api.profile.getFile(uid);
+    return profileImgFile;
+  },
+  async profileGet(store, { uid }) {
     const profileResponse = await api.profile.get(uid);
     return profileResponse;
   },
-  async profilePost(formData) {
+  async profilePost(store, { formData }) {
     const profileResponse = await api.profile.post(formData);
     return profileResponse;
   },
-  async profilePut(formData) {
+  async profilePut(store, { formData }) {
     const profileResponse = await api.profile.put(formData);
     return profileResponse;
   },
-  async profileDelete(uid) {
+  async profileDelete(store, { uid }) {
     const profileResponse = await api.profile.delete(uid);
     return profileResponse;
+  },
+  /* POST */
+  preUploadPost(store, { category, title, content }) {
+    set.post(store, POST.PRE.CATEGORY, category);
+    set.post(store, POST.PRE.TITLE, title);
+    set.post(store, POST.PRE.CONTENT, content);
+  },
+  async postsGet(store, { limit, popularity, total, average, sort }) {
+    const postsResponse = await api.posts.get(
+      limit,
+      popularity,
+      total,
+      average,
+      sort
+    );
+    return postsResponse;
+  },
+  async postsPost(store, { author, category, title, content }) {
+    const postsResponse = await api.posts.post(
+      author,
+      category,
+      title,
+      content
+    );
+    return postsResponse;
+  },
+  async postsPut(store, { author, category, postID, title, content }) {
+    const postsResponse = await api.posts.put(
+      author,
+      category,
+      postID,
+      title,
+      content
+    );
+    return postsResponse;
+  },
+  async postsDelete(store, { postId, category }) {
+    const postsResponse = await api.posts.delete(postId, category);
+    return postsResponse;
+  },
+  /* NOTICE */
+  setNotice(store, { state, title, body, button, style }) {
+    setNotice(store, state, title, body, button, style);
   }
 };

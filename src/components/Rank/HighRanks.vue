@@ -24,7 +24,7 @@
               <div class="inner">
                 <div class="content-item">
                   <div class="rank-num swing">1위</div>
-                  <div class="rank-user swing">USER-ID</div>
+                  <div class="rank-user swing">{{ getRank1 }}</div>
                 </div>
               </div>
             </div>
@@ -34,7 +34,7 @@
               <div class="inner">
                 <div class="content-item">
                   <div class="rank-num">2위</div>
-                  <div class="rank-user">USER-ID</div>
+                  <div class="rank-user">{{ getRank2 }}</div>
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@
               <div class="inner">
                 <div class="content-item">
                   <div class="rank-num">3위</div>
-                  <div class="rank-user">USER-ID</div>
+                  <div class="rank-user">{{ getRank3 }}</div>
                 </div>
               </div>
             </div>
@@ -56,8 +56,56 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
-  name: "HighRanks"
+  name: "HighRanks",
+  data() {
+    return {
+      rank: {
+        fir: "",
+        sec: "",
+        thir: ""
+      }
+    };
+  },
+  created() {
+    this.fetchData();
+  },
+  watch: {
+    $router: "fetchData"
+  },
+  computed: {
+    ...mapGetters(["getRank"]),
+    getRank1() {
+      return this.getRank.top.fir;
+    },
+    getRank2() {
+      return this.getRank.top.sec;
+    },
+    getRank3() {
+      return this.getRank.top.thir;
+    }
+  },
+  methods: {
+    ...mapActions(["usersGet"]),
+    ...mapActions(["userHighRankTop3"]),
+    fetchData() {
+      if (
+        (this.rank.fir === "" || this.rank.sec === "", this.rank.thir === "")
+      ) {
+        this.getHighUser();
+      }
+    },
+    async getHighUser() {
+      const res = await this.usersGet({
+        limit: 3,
+        point: true,
+        post: false,
+        sort: false
+      });
+      this.userHighRankTop3({ users: res.users });
+    }
+  }
 };
 </script>
 

@@ -1,6 +1,10 @@
 import axios from "axios";
 
 const profileAPI = {
+  getFile: uid =>
+    axios.get("/api/file/profileimg/" + uid, {
+      responseType: "arraybuffer"
+    }),
   get: uid =>
     axios.get("/api/account/profile", {
       params: {
@@ -25,6 +29,18 @@ const profileAPI = {
 };
 
 export default {
+  getFile: async uid => {
+    const profileResponse = await profileAPI.getFile(uid);
+    const blob = new Blob([profileResponse.data], {
+      type: profileResponse.headers["content-type"]
+    });
+    var profileImage = await new Promise(resolve => {
+      let reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
+    return profileImage;
+  },
   get: async uid => {
     const profileResponse = await profileAPI.get(uid);
 

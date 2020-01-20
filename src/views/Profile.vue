@@ -8,7 +8,6 @@
               <h1 class="profile-title">과학미科學美</h1>
             </div>
             <div class="profile-box-wrap">
-              <!--
               <div class="profile-box profileimg">
                 <div class="box-title-wrap">
                   <div class="outter">
@@ -40,7 +39,6 @@
                   />
                 </span>
               </div>
-              -->
               <div class="profile-box uname">
                 <div class="box-title-wrap">
                   <div class="outter">
@@ -146,24 +144,41 @@ export default {
       return this.getUser.uname;
     },
     getUploadProfileImage() {
-      if (this.uploadProfileImage === "") {
+      if (this.getUser.profileImg === "profile_default_gwahangmi.jpg") {
         return "https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008";
+      }
+      if (this.uploadProfileImage === "") {
+        const res = this.profileGetFile({ uid: this.getUID });
+        this.promiseProfileImgFileData(res);
       }
       return this.uploadProfileImage;
     }
   },
   methods: {
+    ...mapActions(["profileGetFile"]),
     ...mapActions(["logout"]),
     ...mapActions(["auth"]),
-    ...mapActions(["userLeave"]),
     ...mapActions(["putUser"]),
     ...mapActions(["profilePut"]),
-    fetchData() {
+    ...mapActions(["setNotice"]),
+    ...mapActions(["preProfileChange"]),
+    async promiseProfileImgFileData(p) {
+      await p.then(v => {
+        this.uploadProfileImage = v;
+      });
+    },
+    async fetchData() {
+      if (this.getUser.profileImg != "profile_default_gwahangmi.jpg") {
+        const res = await this.profileGetFile({ uid: this.getUID });
+        this.profileImgFile = res;
+      } else {
+        this.profileImgFile =
+          "https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008";
+      }
       this.user.name = this.getUname;
     },
-    /*
     onFileSelected(event) {
-      //this.profileImg = this.$refs.profileImgFile.files[0];
+      this.profileImg = this.$refs.profileImgFile.files[0];
       var input = event.target;
       if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -173,49 +188,90 @@ export default {
         reader.readAsDataURL(input.files[0]);
       }
     },
-    */
     onLogout() {
-      this.logout();
-      this.user.name = "";
-      this.$router.push("/");
+      this.setNotice({
+        state: true,
+        title: "로그아웃",
+        body: "로그아웃합니다",
+        button: "확인",
+        style: {
+          height: "100%",
+          display: "inline-block"
+        }
+      });
     },
     async onInfoChangeSubmit() {
-      //this.profileImg = this.$refs.profileImgFile.files[0];
+      this.profileImg = this.$refs.profileImgFile.files[0];
       var isAuth = await this.auth({ uid: this.getUID, pw: this.user.pw });
       if (isAuth) {
-        var res = await this.putUser({
-          uid: this.getUID,
-          uname: this.user.name
-        });
-        if (res.isSuccess) {
-          this.$router.push("/");
-        }
-        /*
         const formData = new FormData();
-        formData.append("uid", "guest");
-        formData.append("profileImg", this.profileImg, this.profileImg.name);
-
-        for (let key of formData.entries()) {
-          console.log(`${key}`);
+        if (this.$refs.profileImgFile.files.length > 0) {
+          formData.append("uid", this.getUID);
+          formData.append("profileImg", this.profileImg, this.profileImg.name);
+          this.preProfileChange({ formData: formData, uname: this.user.name });
+        } else {
+          this.preProfileChange({ formData: "", uname: this.user.name });
         }
-        res = this.profilePut(formData);
-        console.log(res);
-        */
+        this.setNotice({
+          state: true,
+          title: "정보수정",
+          body: "프로필 정보를 수정합니다",
+          button: "확인",
+          style: {
+            height: "100%",
+            display: "inline-block"
+          }
+        });
+      } else {
+        this.setNotice({
+          state: true,
+          title: "인증 실패",
+          body: "PW가 잘못되었습니다",
+          button: "확인",
+          style: {
+            height: "100%",
+            display: "inline-block"
+          }
+        });
       }
     },
     async onUserLeave() {
       var isAuth = await this.auth({ uid: this.getUID, pw: this.user.pw });
       if (isAuth) {
-        var res = await this.userLeave({ uid: this.getUID });
-        if (res.isSuccess) {
-          console.log("탈퇴 성공");
-          this.onLogout();
-        } else {
-          console.log("탈퇴 실패");
-          console.log(res);
+        if (this.getUID === "guest") {
+          this.setNotice({
+            state: true,
+            title: "탈퇴 실패",
+            body: "게스트 계정은 탈퇴할 수 없습니다",
+            button: "확인",
+            style: {
+              height: "100%",
+              display: "inline-block"
+            }
+          });
+          return;
         }
+        this.setNotice({
+          state: true,
+          title: "회원탈퇴",
+          body: "과학미의 계정을 삭제합니다",
+          button: "확인",
+          style: {
+            height: "100%",
+            display: "inline-block"
+          }
+        });
       } else {
-        console.log("인증 실패");
+        this.setNotice({
+          state: true,
+          title: "인증 실패",
+          body: "PW가 잘못되었습니다",
+          button: "확인",
+          style: {
+            height: "100%",
+            display: "inline-block"
+          }
+        });
       }
     }
   }

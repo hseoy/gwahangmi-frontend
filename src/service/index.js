@@ -1,7 +1,9 @@
 import loginAPI from "./login";
 import signupAPI from "./signup";
 import userAPI from "./user";
+import usersAPI from "./users";
 import profileAPI from "./profile";
+import postsAPI from "./posts";
 
 export default {
   async login(uid, pw) {
@@ -26,7 +28,17 @@ export default {
       return userResponse;
     }
   },
+  users: {
+    async get(limit, point, post, sort) {
+      const usersResponse = await usersAPI.get(limit, point, post, sort);
+      return usersResponse;
+    }
+  },
   profile: {
+    async getFile(uid) {
+      const profileImgFile = await profileAPI.getFile(uid);
+      return profileImgFile;
+    },
     async get(uid) {
       const profileResponse = await profileAPI.get(uid);
       return profileResponse;
@@ -42,6 +54,41 @@ export default {
     async delete(uid) {
       const profileResponse = await profileAPI.delete(uid);
       return profileResponse;
+    }
+  },
+  posts: {
+    async get(limit, popularity, total, average, sort) {
+      const postsResponse = await postsAPI.get(
+        limit,
+        popularity,
+        total,
+        average,
+        sort
+      );
+      return postsResponse;
+    },
+    async post(author, category, title, content) {
+      const postsResponse = await postsAPI.post(
+        author,
+        category,
+        title,
+        content
+      );
+      return postsResponse;
+    },
+    async put(author, category, postID, title, content) {
+      const postsResponse = await postsAPI.put(
+        author,
+        category,
+        postID,
+        title,
+        content
+      );
+      return postsResponse;
+    },
+    async delete(postId, category) {
+      const postsResponse = await postsAPI.delete(postId, category);
+      return postsResponse;
     }
   }
 };

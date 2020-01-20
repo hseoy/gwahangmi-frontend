@@ -1,0 +1,93 @@
+#gwahangmiNotice.gwahangmi-notice {
+  .notice-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 100%;
+      height: 0%;
+      background-color:#000000b3;
+      transition: 0.3s;
+  }
+
+  .notice-content {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -250px;
+    z-index: 99999;
+    width: 500px;
+    height: 300px;
+    background-color:  $color-primary;
+    border: 5px solid $color-accent;
+    font-family: $font-accent;
+    border-radius: 20px;
+
+    .closebtn {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      width: 40px;
+      height: 40px;
+      background-color: transparent;
+      font-size: 18px;
+      font-weight: bold;
+      cursor:pointer;
+      z-index: 999999;
+    }
+
+    .notice-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      
+      .notice-title {
+        width: 100%;
+        height: 40%;
+        font-size: 20px;
+        text-align: center;
+        display: table;
+        color: $color-accent;
+
+        h1 {
+          display: table-cell;
+          vertical-align: middle;
+          border-bottom: 2px dotted $color-accent;
+          font-family: $font-accent;
+        }
+      }
+
+      .notice-body {
+        width: 100%;
+        height: 40%;
+        display: table;
+        font-size: 18px;
+        text-align: center;
+        color: $color-accent;
+        p {
+          display: table-cell;
+          vertical-align: middle;
+          font-family: $font-base;
+        }
+      }
+
+      .notice-check {
+        width: 100%;
+
+        .check-button {
+          width: 100%; 
+          height: 60px;
+          border-radius: 15px;
+          color: $color-primary;
+          font-family: $font-accent;
+          background-color: $color-accent;
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

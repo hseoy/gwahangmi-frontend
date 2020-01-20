@@ -88,17 +88,38 @@ export default {
   },
   methods: {
     ...mapActions(["login"]),
+    ...mapActions(["setNotice"]),
     async onSubmit() {
+      if (this.user.id === "guest") {
+        this.guestLogin();
+        return;
+      }
       await this.login({ uid: this.user.id, pw: this.user.pw });
       if (this.getUser.isAuth === true) {
-        this.$router.push({ name: "home" });
+        this.setNotice({
+          state: true,
+          title: "로그인 성공",
+          body: "로그인에 성공하였습니다",
+          button: "확인",
+          style: {
+            height: "100%",
+            display: "inline-block"
+          }
+        });
       }
     },
     async guestLogin() {
-      await this.login({ uid: "guest", pw: "guest" });
-      if (this.getUser.isAuth === true) {
-        this.$router.push({ name: "home" });
-      }
+      this.setNotice({
+        state: true,
+        title: "게스트로 로그인",
+        body:
+          "게스트 계정으로 로그인합니다. 이 계정은 모든 사람이 함께 사용합니다.",
+        button: "확인",
+        style: {
+          height: "100%",
+          display: "inline-block"
+        }
+      });
     },
     goSignup() {
       this.$router.push("signup");

@@ -33,7 +33,7 @@
         <div class="outter">
           <div class="inner">
             <button class="post-upload-button" v-on:click="postUpload">
-              제출
+              제출{{ post.category }}
             </button>
           </div>
         </div>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import MdEditor from "@/components/Posts/MdEditor.vue";
 
 export default {
@@ -60,23 +61,56 @@ export default {
         category: "",
         title: "Hello, 과학미",
         content: "<h1>Hello, 과학미</h1>"
-      },
-      init: false
+      }
     };
   },
   computed: {
+    ...mapGetters(["getUser"]),
     computedHeight() {
       return this.height;
     },
     computedDisplay() {
       return this.display;
+    },
+    getUID() {
+      return this.getUser.uid;
     }
   },
   methods: {
+    ...mapActions(["preUploadPost"]),
+    ...mapActions(["setNotice"]),
     closeEditor() {
       this.$emit("close-editor");
     },
     postUpload() {
+      if (this.post.category === "") {
+        this.setNotice({
+          state: true,
+          title: "카테고리를 선택해주세요",
+          body: "글을 업로드할 카테고리를 선택하지 않았습니다",
+          button: "확인",
+          style: {
+            height: "100%",
+            display: "inline-block"
+          }
+        });
+        return;
+      }
+      this.preUploadPost({
+        category: this.post.category,
+        title: this.post.title,
+        content: this.post.content
+      });
+      this.setNotice({
+        state: true,
+        title: "나도 글쓰기!",
+        body: this.post.category + " 카테고리로 글을 업로드합니다",
+        button: "확인",
+        style: {
+          height: "100%",
+          display: "inline-block"
+        }
+      });
       this.postDataInit();
       this.closeEditor();
     },
