@@ -31,12 +31,22 @@ export default {
   get: async uid => {
     const userResponse = await userAPI.get(uid);
 
-    return {
-      isAuth: userResponse.data.data.uid,
-      uname: userResponse.data.data.uname,
-      profileImg: userResponse.data.data.profileImg,
-      point: userResponse.data.data.point,
-      postCnt: userResponse.data.data.postCnt
-    };
+    try {
+      return {
+        uid: userResponse.data.data.uid,
+        uname: userResponse.data.data.uname,
+        profileImg: userResponse.data.data.profileImg,
+        point: userResponse.data.data.point,
+        postCnt: userResponse.data.data.postCnt
+      };
+    } catch {
+      return {
+        uid: "존재하지 않는 유저",
+        uname: "존재하지 않는 유저",
+        profileImg: "profile_default_gwahangmi.jpg",
+        point: 0,
+        postCnt: 0
+      };
+    }
   }
 };
