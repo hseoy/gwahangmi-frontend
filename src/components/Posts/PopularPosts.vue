@@ -21,60 +21,24 @@
         <div class="scene">
           <div class="cube" v-bind:class="getShowCubeSide">
             <div class="cube-face cube-face-left">
-              <post-thumbnail
-                thumbnailImg="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008"
-                title="title1"
-              />
-              <post-thumbnail
-                thumbnailImg="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008"
-                title="title2"
-              />
-              <post-thumbnail
-                thumbnailImg="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008"
-                title="title3"
-              />
+              <post-thumbnail :postID="getPostCubePostID[0][0]" />
+              <post-thumbnail :postID="getPostCubePostID[0][1]" />
+              <post-thumbnail :postID="getPostCubePostID[0][2]" />
             </div>
             <div class="cube-face cube-face-front">
-              <post-thumbnail
-                thumbnailImg="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008"
-                title="title4"
-              />
-              <post-thumbnail
-                thumbnailImg="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008"
-                title="title5"
-              />
-              <post-thumbnail
-                thumbnailImg="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008"
-                title="title6"
-              />
+              <post-thumbnail :postID="getPostCubePostID[1][0]" />
+              <post-thumbnail :postID="getPostCubePostID[1][1]" />
+              <post-thumbnail :postID="getPostCubePostID[1][2]" />
             </div>
             <div class="cube-face cube-face-right">
-              <post-thumbnail
-                thumbnailImg="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008"
-                title="title7"
-              />
-              <post-thumbnail
-                thumbnailImg="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008"
-                title="title8"
-              />
-              <post-thumbnail
-                thumbnailImg="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008"
-                title="title9"
-              />
+              <post-thumbnail :postID="getPostCubePostID[2][0]" />
+              <post-thumbnail :postID="getPostCubePostID[2][1]" />
+              <post-thumbnail :postID="getPostCubePostID[2][2]" />
             </div>
             <div class="cube-face cube-face-back">
-              <post-thumbnail
-                thumbnailImg="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008"
-                title="title10"
-              />
-              <post-thumbnail
-                thumbnailImg="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008"
-                title="title11"
-              />
-              <post-thumbnail
-                thumbnailImg="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008"
-                title="title12"
-              />
+              <post-thumbnail :postID="getPostCubePostID[3][0]" />
+              <post-thumbnail :postID="getPostCubePostID[3][1]" />
+              <post-thumbnail :postID="getPostCubePostID[3][2]" />
             </div>
           </div>
         </div>
@@ -110,6 +74,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import PostThumbnail from "./PostThumbnail.vue";
 
 export default {
@@ -130,13 +95,28 @@ export default {
       autoSlide: true,
       playSlide: null,
       startSlide: null,
-      stopSlide: null
+      stopSlide: null,
+      postCube: [
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""]
+      ]
     };
+  },
+  created() {
+    this.fetchData();
   },
   mounted() {
     this.autoSlides();
   },
+  wahtch: {
+    $route: "fetchData"
+  },
   computed: {
+    getPostCubePostID() {
+      return this.postCube;
+    },
     getShowCubeSide() {
       return {
         "show-front":
@@ -163,6 +143,24 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["postsGet"]),
+    async fetchData() {
+      await this.getPostIDs();
+    },
+    async getPostIDs() {
+      const res = await this.postsGet({
+        category: false,
+        limit: 12,
+        skip: 0,
+        popularity: true,
+        total: true,
+        average: false,
+        sort: false
+      });
+      for (let i = 0; i < res.posts.length; i++) {
+        this.postCube[parseInt(i / 3)][parseInt(i % 3)] = res.posts[i];
+      }
+    },
     autoSlides() {
       this.startSlide = function() {
         this.playSlide = setInterval(this.plusSlides, 3000);
