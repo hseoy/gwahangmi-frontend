@@ -109,6 +109,10 @@ export default {
     processResponse.user(store, userResponse);
     set.user(store, USER.UID, uid);
   },
+  async getUserInfoJust(store, { uid }) {
+    const userResponse = await getUserInfo(uid);
+    return userResponse;
+  },
   preProfileChange(store, { formData, uname }) {
     set.user(store, USER.PROFILE_CHANGE.FORM_DATA, formData);
     set.user(store, USER.PROFILE_CHANGE.UNAME, uname);
