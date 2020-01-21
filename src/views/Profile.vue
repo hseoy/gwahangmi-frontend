@@ -50,7 +50,7 @@
                   </div>
                 </div>
                 <input
-                  type="number"
+                  type="text"
                   class="profile-input"
                   :title="getUserPoint"
                   :value="getUserPoint"
@@ -162,7 +162,12 @@ export default {
       return this.getUser.uname;
     },
     getUserPoint() {
-      return this.getUser.point;
+      if (this.getUser.point <= 20) {
+        return this.getUser.point + " - Rank:과";
+      } else if (this.getUser.point <= 40) {
+        return this.getUser.point + " - Rank:학";
+      }
+      return this.getUser.point + " - Rank:미";
     },
     getUploadProfileImage() {
       if (this.getUser.profileImg === "profile_default_gwahangmi.jpg") {
