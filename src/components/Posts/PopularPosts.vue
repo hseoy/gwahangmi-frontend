@@ -110,7 +110,7 @@ export default {
   mounted() {
     this.autoSlides();
   },
-  wahtch: {
+  watch: {
     $route: "fetchData"
   },
   computed: {
