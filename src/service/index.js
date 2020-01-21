@@ -4,6 +4,7 @@ import userAPI from "./user";
 import usersAPI from "./users";
 import profileAPI from "./profile";
 import postsAPI from "./posts";
+import postAPI from "./post";
 
 export default {
   async login(uid, pw) {
@@ -88,9 +89,15 @@ export default {
       );
       return postsResponse;
     },
-    async delete(postId, category) {
-      const postsResponse = await postsAPI.delete(postId, category);
+    async delete(postID, category) {
+      const postsResponse = await postsAPI.delete(postID, category);
       return postsResponse;
+    }
+  },
+  post: {
+    get: async postID => {
+      const postResponse = await postAPI.get(postID);
+      return postResponse;
     }
   }
 };

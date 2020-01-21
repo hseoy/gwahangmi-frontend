@@ -141,6 +141,11 @@ export default {
     return profileResponse;
   },
   /* POST */
+  async postGet(store, { postID }) {
+    const postResponse = await api.post.get(postID);
+    return postResponse;
+  },
+  /* POSTS */
   preUploadPost(store, { category, title, content }) {
     set.post(store, POST.PRE.CATEGORY, category);
     set.post(store, POST.PRE.TITLE, title);
