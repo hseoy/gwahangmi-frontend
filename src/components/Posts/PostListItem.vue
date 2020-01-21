@@ -2,11 +2,11 @@
   <div class="post-list-item">
     <div class="post-info-wrap">
       <div class="category">{{ getCategory }}</div>
-      <div class="upload-date">2020.01.22</div>
-      <div class="author">USER-ID</div>
+      <div class="upload-date">{{ getPostDate }}</div>
+      <div class="author">{{ getPostAuthor }}</div>
     </div>
     <div class="post-title-wrap">
-      <h2 class="post-title">Hello, 과학미</h2>
+      <h2 class="post-title">{{ getPostTitle }}</h2>
     </div>
     <div class="open-point-wrap" :style="computedStyleOpenPostPoint">
       <button class="open-btn" @click="openPointWrap">
@@ -122,7 +122,7 @@
 </template>
 
 <script>
-// import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "post-list-item",
@@ -131,6 +131,7 @@ export default {
   },
   data() {
     return {
+      postInfo: null,
       post: {
         point: 0
       },
@@ -172,10 +173,19 @@ export default {
       ]
     };
   },
+  created() {
+    if (this.postID != undefined) {
+      this.getPostInfo();
+    }
+  },
+  watch: {
+    postID() {
+      if (this.postID != undefined) {
+        this.getPostInfo();
+      }
+    }
+  },
   computed: {
-    getCategory() {
-      return this.$route.params.category;
-    },
     computedStyleOpenPostPoint() {
       return {
         height: this.openPostPointStyle.height,
@@ -225,9 +235,43 @@ export default {
         backgroundColor: this.label[5].backgroundColor,
         color: this.label[5].color
       };
+    },
+    getCategory() {
+      return this.$route.params.category;
+    },
+    getPostDate() {
+      if (this.postInfo == null) {
+        return "0000.00.00";
+      }
+      return (
+        this.postInfo.uploadDate.year +
+        "." +
+        this.postInfo.uploadDate.month +
+        "." +
+        this.postInfo.uploadDate.day
+      );
+    },
+    getPostTitle() {
+      if (this.postInfo == null) {
+        return "Hello, 과학미";
+      }
+      return this.postInfo.title;
+    },
+    getPostAuthor() {
+      if (this.postInfo == null) {
+        return "과학미";
+      }
+      return this.postInfo.author;
     }
   },
   methods: {
+    ...mapActions(["postGet"]),
+    async getPostInfo() {
+      if (this.postID != undefined) {
+        const res = await this.postGet({ postID: this.postID });
+        this.postInfo = res;
+      }
+    },
     changePostPoint(n) {
       this.checkedLabel(n);
       for (let i = 0; i < this.label.length; i++) {

@@ -7,17 +7,18 @@
 
     <div class="content-wrap">
       <div class="content">
-        <post-list-item postID="1" />
-
-        <post-list-item postID="2" />
-
-        <post-list-item postID="3" />
+        <post-list-item
+          v-for="postID in this.postIDs"
+          :key="postID"
+          :postID="postID"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import GwahangmiHeader from "../components/GwahangmiHeader/GwahangmiHeader.vue";
 import PostListItem from "../components/Posts/PostListItem.vue";
 
@@ -28,14 +29,42 @@ export default {
     "post-list-item": PostListItem
   },
   data() {
-    return {};
+    return {
+      postIDs: null
+    };
+  },
+  created() {
+    this.fetchData();
+  },
+  watch: {
+    $route: "fetchData",
+    postIDs() {
+      console.log(this.postIDs);
+    }
   },
   computed: {
     getCategory() {
       return this.$route.params.category;
     }
   },
-  methods: {}
+  methods: {
+    ...mapActions(["postsGet"]),
+    async fetchData() {
+      await this.getPostIDs();
+    },
+    async getPostIDs() {
+      const res = await this.postsGet({
+        category: this.getCategory,
+        limit: 12,
+        skip: 0,
+        popularity: false,
+        total: false,
+        average: false,
+        sort: false
+      });
+      this.postIDs = res.posts;
+    }
+  }
 };
 </script>
 
