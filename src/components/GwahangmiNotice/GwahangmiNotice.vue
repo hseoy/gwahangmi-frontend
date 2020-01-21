@@ -25,7 +25,7 @@
           <h1>{{ computedTitle }}</h1>
         </div>
         <div class="notice-body">
-          <p>{{ computedBody }}</p>
+          <p v-html="computedBody"></p>
         </div>
         <div class="notice-check">
           <button class="check-button" v-on:click="noticeCheck">

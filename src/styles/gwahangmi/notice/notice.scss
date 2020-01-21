@@ -51,6 +51,7 @@
         text-align: center;
         display: table;
         color: $color-accent;
+        word-break: break-all;
 
         h1 {
           display: table-cell;
