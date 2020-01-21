@@ -1,6 +1,9 @@
 <template>
   <div id="home">
-    <gwahangmi-header />
+    <gwahangmi-header
+      headTitle="과학미科學美"
+      headSubTitle="과학의 아름다움을 나누는 커뮤니티"
+    />
 
     <div class="content-wrap">
       <div class="content">

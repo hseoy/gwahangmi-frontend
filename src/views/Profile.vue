@@ -39,6 +39,24 @@
                   />
                 </span>
               </div>
+              <div class="profile-box point readonly">
+                <div class="box-title-wrap">
+                  <div class="outter">
+                    <div class="inner">
+                      <h2 class="box-title">
+                        POINT
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <input
+                  type="number"
+                  class="profile-input"
+                  :title="getUserPoint"
+                  :value="getUserPoint"
+                  readonly
+                />
+              </div>
               <div class="profile-box uname">
                 <div class="box-title-wrap">
                   <div class="outter">
@@ -143,6 +161,9 @@ export default {
     getUname() {
       return this.getUser.uname;
     },
+    getUserPoint() {
+      return this.getUser.point;
+    },
     getUploadProfileImage() {
       if (this.getUser.profileImg === "profile_default_gwahangmi.jpg") {
         return "https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008";
@@ -162,6 +183,7 @@ export default {
     ...mapActions(["profilePut"]),
     ...mapActions(["setNotice"]),
     ...mapActions(["preProfileChange"]),
+    ...mapActions(["getUserInfo"]),
     async promiseProfileImgFileData(p) {
       await p.then(v => {
         this.uploadProfileImage = v;
@@ -175,6 +197,7 @@ export default {
         this.profileImgFile =
           "https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008";
       }
+      await this.getUserInfo({ uid: this.getUID });
       this.user.name = this.getUname;
     },
     onFileSelected(event) {

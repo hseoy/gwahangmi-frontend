@@ -95,11 +95,23 @@ export default {
         return;
       }
       await this.login({ uid: this.user.id, pw: this.user.pw });
+      console.log(this.getUser);
       if (this.getUser.isAuth === true) {
         this.setNotice({
           state: true,
           title: "로그인 성공",
           body: "로그인에 성공하였습니다",
+          button: "확인",
+          style: {
+            height: "100%",
+            display: "inline-block"
+          }
+        });
+      } else {
+        this.setNotice({
+          state: true,
+          title: "로그인 실패",
+          body: "로그인에 실패하였습니다 : " + this.getUser.authState,
           button: "확인",
           style: {
             height: "100%",

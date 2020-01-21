@@ -3,10 +3,10 @@
     <div class="wrapper">
       <hgroup>
         <h1 class="gwahangmi-title">
-          <a href="#">과학미科學美</a>
+          <a href="#">{{ headTitle }}</a>
         </h1>
         <h2 class="gwahangmi-subtitle">
-          과학의 아름다움을 나누는 커뮤니티
+          {{ headSubTitle }}
         </h2>
       </hgroup>
       <div class="sign-wrap" v-if="!getIsAuth">
@@ -37,10 +37,30 @@
           <div class="item-wrap">
             <a class="gnb-item" href="javascript:void(0)">카테고리</a>
             <div class="subitem-wrap">
-              <a class="gnb-subitem" href="#">물리학</a>
-              <a class="gnb-subitem" href="#">화학</a>
-              <a class="gnb-subitem" href="#">지구과학</a>
-              <a class="gnb-subitem" href="#">생물학</a>
+              <a
+                class="gnb-subitem"
+                href="javascript:void(0)"
+                @click="goCategory('physics')"
+                >물리학</a
+              >
+              <a
+                class="gnb-subitem"
+                href="javascript:void(0)"
+                @click="goCategory('chemistry')"
+                >화학</a
+              >
+              <a
+                class="gnb-subitem"
+                href="javascript:void(0)"
+                @click="goCategory('geoscience')"
+                >지구과학</a
+              >
+              <a
+                class="gnb-subitem"
+                href="javascript:void(0)"
+                @click="goCategory('biology')"
+                >생물학</a
+              >
             </div>
           </div>
           <div class="item-wrap">
@@ -62,6 +82,10 @@
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "GwahangmiHeader",
+  props: {
+    headTitle: String,
+    headSubTitle: String
+  },
   data() {
     return {
       profileImgFile: ""
@@ -108,15 +132,24 @@ export default {
       }
     },
     goProfile() {
-      this.$router.push("profile");
+      this.$router.push("/profile");
     },
     goLogin() {
       this.logout();
-      this.$router.push("login");
+      this.$router.push("/login");
+    },
+    goCategory(category) {
+      if (
+        this.$route.name === "category" &&
+        this.$route.params.category === category
+      ) {
+        return;
+      }
+      this.$router.push("/posts/" + category);
     },
     goSignup() {
       this.logout();
-      this.$router.push("signup");
+      this.$router.push("/signup");
     }
   }
 };

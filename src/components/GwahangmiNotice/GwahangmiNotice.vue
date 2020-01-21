@@ -101,7 +101,8 @@ export default {
         this.$router.push("/");
       } else if (
         this.computedTitle === "정보수정 성공" ||
-        this.computedTitle === "로그인 성공"
+        this.computedTitle === "로그인 성공" ||
+        this.computedTitle === "회원가입 성공"
       ) {
         this.$router.push("/");
       } else if (this.computedTitle === "게스트로 로그인") {
@@ -121,7 +122,7 @@ export default {
           this.setNotice({
             state: true,
             title: "업로드 성공",
-            body: "글을 업로드하는 데 성공했습니다",
+            body: "글을 업로드하는 데 성공했습니다 +5",
             button: "확인",
             style: {
               height: "100%",

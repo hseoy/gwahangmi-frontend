@@ -146,9 +146,14 @@ export default {
     set.post(store, POST.PRE.TITLE, title);
     set.post(store, POST.PRE.CONTENT, content);
   },
-  async postsGet(store, { limit, popularity, total, average, sort }) {
+  async postsGet(
+    store,
+    { category, limit, skip, popularity, total, average, sort }
+  ) {
     const postsResponse = await api.posts.get(
+      category,
       limit,
+      skip,
       popularity,
       total,
       average,

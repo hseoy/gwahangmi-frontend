@@ -57,9 +57,11 @@ export default {
     }
   },
   posts: {
-    async get(limit, popularity, total, average, sort) {
+    async get(category, limit, skip, popularity, total, average, sort) {
       const postsResponse = await postsAPI.get(
+        category,
         limit,
+        skip,
         popularity,
         total,
         average,

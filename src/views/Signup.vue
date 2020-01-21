@@ -123,8 +123,19 @@ export default {
   },
   methods: {
     ...mapActions(["signup"]),
+    ...mapActions(["setNotice"]),
     async onSubmit() {
       if (this.user.pw != this.user.pwConfirm) {
+        this.setNotice({
+          state: true,
+          title: "잘못된 패스워드",
+          body: "PW가 일치한지 다시 확인해주세요",
+          button: "확인",
+          style: {
+            height: "100%",
+            display: "inline-block"
+          }
+        });
         return;
       }
       await this.signup({
@@ -133,7 +144,27 @@ export default {
         pw: this.user.pw
       });
       if (this.getUser.isAuth === true) {
-        this.$router.push({ name: "home" });
+        this.setNotice({
+          state: true,
+          title: "회원가입 성공",
+          body: "회원가입에 성공했습니다",
+          button: "확인",
+          style: {
+            height: "100%",
+            display: "inline-block"
+          }
+        });
+      } else {
+        this.setNotice({
+          state: true,
+          title: "회원가입 실패",
+          body: "회원가입에 실패했습니다 : " + this.getUser.authState,
+          button: "확인",
+          style: {
+            height: "100%",
+            display: "inline-block"
+          }
+        });
       }
     },
     goLogin() {

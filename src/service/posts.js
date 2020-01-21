@@ -1,10 +1,12 @@
 import axios from "axios";
 
 const postsAPI = {
-  get: (limit, popularity, total, average, sort) =>
+  get: (category, limit, skip, popularity, total, average, sort) =>
     axios.get("/api/category/posts", {
       params: {
+        category: category,
         limit: limit,
+        skip: skip,
         popularity: popularity,
         total: total,
         average: average,
@@ -29,16 +31,18 @@ const postsAPI = {
   delete: (postId, category) =>
     axios.delete("/api/category/posts", {
       params: {
-        postId: postId,
+        postID: postId,
         category: category
       }
     })
 };
 
 export default {
-  get: async (limit, popularity, total, average, sort) => {
+  get: async (category, limit, skip, popularity, total, average, sort) => {
     const postsResponse = await postsAPI.get(
+      category,
       limit,
+      skip,
       popularity,
       total,
       average,

@@ -5,6 +5,7 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import Profile from "../views/Profile.vue";
+import Category from "../views/Category.vue";
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,11 @@ const routes = [
     name: "profile",
     component: Profile,
     beforeEnter: requireAuth()
+  },
+  {
+    path: "/posts/:category",
+    name: "category",
+    component: Category
   }
 ];
 
