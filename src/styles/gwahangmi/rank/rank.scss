@@ -1,0 +1,88 @@
+#rank {
+  .content-wrap {
+    width: 80%;
+    max-width: 1240px;
+    margin: 0 auto;
+
+    .content {
+      padding: 40px 40px 50px 40px;
+
+      .rank-wrap {
+        .rank-info-wrap {
+          width: 100%;
+          text-align: center;
+
+          
+          .rank-info-title {
+            padding: 20px;
+            h1 {
+              color: $color-accent;
+              font-size:  28px;
+              font-family: $font-accent;
+            }
+          }
+      
+          .rank-info-desc {
+            padding-bottom: 10px;
+            p {
+              color: $color-accent;
+              font-size: 20px;
+            }
+          }
+        }
+      
+        .rank-user-wrap {
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+          padding-top: 50px;
+          font-family: $font-accent;
+      
+          .rank-user-list {
+            width: 80%;
+      
+            .user-list-item {
+              width: 100%;
+              display: block;
+              
+              .list-title {
+                background-color: $color-primary;
+                color: $color-accent;
+                font-size: 20px;
+                font-weight: bold;
+              }
+
+              .list-wrap {
+                display: inline-block;
+                width: 100%;
+                padding: 20px;
+      
+                .user-id-wrap {
+                  width: 40%;
+                  float: left;
+      
+                  .user-num,
+                  .user-id {
+                    float: left;
+                    width: 50%;
+                  }
+                }
+      
+                .user-info{
+                  width: 60%;
+                  float: left;
+      
+                  .user-post-cnt,
+                  .user-point {
+                    float: left;
+                    width: 50%;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

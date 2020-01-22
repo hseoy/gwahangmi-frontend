@@ -95,7 +95,6 @@ export default {
         return;
       }
       await this.login({ uid: this.user.id, pw: this.user.pw });
-      console.log(this.getUser);
       if (this.getUser.isAuth === true) {
         this.setNotice({
           state: true,

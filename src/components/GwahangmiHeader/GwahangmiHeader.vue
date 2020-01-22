@@ -2,12 +2,14 @@
   <div id="gwahangmiHeader">
     <div class="wrapper">
       <hgroup>
-        <h1 class="gwahangmi-title">
-          <a href="#">{{ headTitle }}</a>
-        </h1>
-        <h2 class="gwahangmi-subtitle">
-          {{ headSubTitle }}
-        </h2>
+        <a href="javascript:void(0)" @click="goHome">
+          <h1 class="gwahangmi-title">
+            {{ headTitle }}
+          </h1>
+          <h2 class="gwahangmi-subtitle">
+            {{ headSubTitle }}
+          </h2>
+        </a>
       </hgroup>
       <div class="sign-wrap" v-if="!getIsAuth">
         <a class="sign-in" href="javascript:void(0)" @click="goLogin">
@@ -64,7 +66,9 @@
             </div>
           </div>
           <div class="item-wrap">
-            <a class="gnb-item" href="#">과학순위</a>
+            <a class="gnb-item" href="javascript:void(0)" @click="goRank"
+              >과학순위</a
+            >
           </div>
           <div class="item-wrap">
             <a class="gnb-item" href="#">과학퀴즈</a>
@@ -150,6 +154,18 @@ export default {
     goSignup() {
       this.logout();
       this.$router.push("/signup");
+    },
+    goRank() {
+      if (this.$route.name === "rank") {
+        return;
+      }
+      this.$router.push("/rank");
+    },
+    goHome() {
+      if (this.$route.name === "home") {
+        return;
+      }
+      this.$router.push("/");
     }
   }
 };

@@ -1,0 +1,27 @@
+.rank-info {
+  display: inline-block;
+  width: 100%;
+  border-bottom: 3px dotted $color-accent;
+
+  .rank-info-wrap {
+    float: left;
+    width: 40%;
+    
+    .user-num,
+    .user-uname {
+      float: left;
+      width: 50%;
+    }
+  }
+
+  .user-info {
+    float: left;
+    width: 60%;
+
+    .user-post-cnt,
+    .user-point {
+      float: left;
+      width: 50%;
+    }
+  }
+}

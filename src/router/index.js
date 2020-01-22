@@ -7,6 +7,7 @@ import Signup from "../views/Signup.vue";
 import Profile from "../views/Profile.vue";
 import Category from "../views/Category.vue";
 import postContent from "../views/PostContent.vue";
+import Rank from "../views/Rank.vue";
 
 Vue.use(VueRouter);
 
@@ -46,6 +47,11 @@ const routes = [
     path: "/posts/:category/:postID",
     name: "postContent",
     component: postContent
+  },
+  {
+    path: "/rank",
+    name: "rank",
+    component: Rank
   }
 ];
 
