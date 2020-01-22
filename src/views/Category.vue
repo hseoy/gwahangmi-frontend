@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import GwahangmiHeader from "../components/GwahangmiHeader/GwahangmiHeader.vue";
 import PostListItem from "../components/Posts/PostListItem.vue";
 
@@ -38,17 +38,22 @@ export default {
   },
   watch: {
     $route: "fetchData",
-    postIDs() {
-      console.log(this.postIDs);
+    computedUploadCheck() {
+      this.fetchData();
+      this.setUpload({ upload: false });
     }
   },
   computed: {
+    ...mapGetters(["getPost"]),
+    computedUploadCheck() {
+      return this.getPost.upload;
+    },
     getCategory() {
       return this.$route.params.category;
     }
   },
   methods: {
-    ...mapActions(["postsGet"]),
+    ...mapActions(["postsGet", "setUpload"]),
     async fetchData() {
       await this.getPostIDs();
     },

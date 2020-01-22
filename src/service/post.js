@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const post = {
-  get: postID => axios.get("/api/category/posts/" + postID)
+  get: postID => axios.get("/api/category/posts/" + postID),
+  getContent: postID => axios.get("/api/file/post/content/" + postID)
 };
 
 export default {
@@ -18,5 +19,9 @@ export default {
       averagePoint: postResponse.data.data.averagePoint,
       uploadDate: postResponse.data.data.uploadDate
     };
+  },
+  getContent: async postID => {
+    const postResponse = await post.getContent(postID);
+    return postResponse.data;
   }
 };

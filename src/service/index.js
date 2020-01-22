@@ -5,8 +5,10 @@ import usersAPI from "./users";
 import profileAPI from "./profile";
 import postsAPI from "./posts";
 import postAPI from "./post";
+import pointAPI from "./point";
 
 export default {
+  /* SIGN */
   async login(uid, pw) {
     const loginResponse = await loginAPI.login(uid, pw);
     return loginResponse;
@@ -15,6 +17,7 @@ export default {
     const signupResponse = await signupAPI.signup(uname, uid, pw);
     return signupResponse;
   },
+  /* USER */
   user: {
     async get(uid) {
       const userResponse = await userAPI.get(uid);
@@ -29,12 +32,14 @@ export default {
       return userResponse;
     }
   },
+  /* USERS */
   users: {
     async get(limit, point, post, sort) {
       const usersResponse = await usersAPI.get(limit, point, post, sort);
       return usersResponse;
     }
   },
+  /* PROFILE */
   profile: {
     async getFile(uid) {
       const profileImgFile = await profileAPI.getFile(uid);
@@ -57,6 +62,7 @@ export default {
       return profileResponse;
     }
   },
+  /* POSTS */
   posts: {
     async get(category, limit, skip, popularity, total, average, sort) {
       const postsResponse = await postsAPI.get(
@@ -94,10 +100,26 @@ export default {
       return postsResponse;
     }
   },
+  /* POST */
   post: {
     get: async postID => {
       const postResponse = await postAPI.get(postID);
       return postResponse;
+    },
+    getContent: async postID => {
+      const postResponse = await postAPI.getContent(postID);
+      return postResponse;
+    }
+  },
+  /* POINT */
+  point: {
+    get: async (postID, uid) => {
+      const pointResponse = await pointAPI.get(postID, uid);
+      return pointResponse;
+    },
+    post: async (postID, uid, point) => {
+      const pointResponse = await pointAPI.post(postID, uid, point);
+      return pointResponse;
     }
   }
 };

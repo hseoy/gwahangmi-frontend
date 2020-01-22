@@ -105,6 +105,8 @@ export default {
         this.computedTitle === "회원가입 성공"
       ) {
         this.$router.push("/");
+      } else if (this.computedTitle === "로그인") {
+        this.$router.push("/login");
       } else if (this.computedTitle === "게스트로 로그인") {
         await this.login({ uid: "guest", pw: "guest" });
         if (this.getUser.isAuth === true) {

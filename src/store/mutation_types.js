@@ -31,5 +31,6 @@ export const POST = {
     CATEGORY: "POST_PRE_CATEGORY",
     TITLE: "POST_PRE_TITLE",
     CONTENT: "POST_PRE_CONTENT"
-  }
+  },
+  UPLOAD: "POST_UPLOAD"
 };

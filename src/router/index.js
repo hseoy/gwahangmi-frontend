@@ -6,6 +6,7 @@ import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import Profile from "../views/Profile.vue";
 import Category from "../views/Category.vue";
+import postContent from "../views/PostContent.vue";
 
 Vue.use(VueRouter);
 
@@ -40,6 +41,11 @@ const routes = [
     path: "/posts/:category",
     name: "category",
     component: Category
+  },
+  {
+    path: "/posts/:category/:postID",
+    name: "postContent",
+    component: postContent
   }
 ];
 

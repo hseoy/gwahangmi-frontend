@@ -10,7 +10,8 @@
     position: relative;
 
     .upload-date,
-    .author {
+    .author,
+    .point {
       display: inline-block;
       color: $color-accent;
       font-family: $font-accent;
@@ -115,7 +116,6 @@
       margin-top: 20px;
       .post-point-user,
       .post-point-submit {
-        border: $color-accent;
         background-color: $color-primary;
         padding: 5px 10px;
         font-family: $font-accent;

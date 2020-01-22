@@ -61,6 +61,10 @@ const setNotice = (store, state, title, body, button, style) => {
   set.notice(store, NOTICE.STYLE.DISPLAY, style.display);
 };
 
+const setUpload = (store, upload) => {
+  set.post(store, POST.UPLOAD, upload);
+};
+
 export default {
   /* SIGN */
   async login(store, { uid, pw }) {
@@ -149,6 +153,10 @@ export default {
     const postResponse = await api.post.get(postID);
     return postResponse;
   },
+  async postGetContent(store, { postID }) {
+    const postResponse = await api.post.getContent(postID);
+    return postResponse;
+  },
   /* POSTS */
   preUploadPost(store, { category, title, content }) {
     set.post(store, POST.PRE.CATEGORY, category);
@@ -177,7 +185,11 @@ export default {
       title,
       content
     );
+    setUpload(store, true);
     return postsResponse;
+  },
+  setUpload(store, { upload }) {
+    setUpload(store, upload);
   },
   async postsPut(store, { author, category, postID, title, content }) {
     const postsResponse = await api.posts.put(
@@ -192,6 +204,15 @@ export default {
   async postsDelete(store, { postId, category }) {
     const postsResponse = await api.posts.delete(postId, category);
     return postsResponse;
+  },
+  /* POINT */
+  async pointGet(store, { postID, uid }) {
+    const pointResponse = await api.point.get(postID, uid);
+    return pointResponse;
+  },
+  async pointPost(store, { postID, uid, point }) {
+    const pointResponse = await api.point.post(postID, uid, point);
+    return pointResponse;
   },
   /* NOTICE */
   setNotice(store, { state, title, body, button, style }) {

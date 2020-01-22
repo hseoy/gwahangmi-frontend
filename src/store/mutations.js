@@ -73,5 +73,8 @@ export default {
   },
   [types.POST.PRE.CONTENT](state, content) {
     state.post.pre.content = content;
+  },
+  [types.POST.UPLOAD](state, upload) {
+    state.post.upload = upload;
   }
 };

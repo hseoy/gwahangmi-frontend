@@ -44,7 +44,8 @@ const state = {
       category: "",
       title: "",
       content: ""
-    }
+    },
+    upload: false
   }
 };
 

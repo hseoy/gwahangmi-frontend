@@ -3,14 +3,16 @@
     <div class="post-info-wrap">
       <div class="category">{{ getCategory }}</div>
       <div class="upload-date">{{ getPostDate }}</div>
-      <div class="author">{{ getPostAuthor }}</div>
+      <div class="author">작성자: {{ getPostAuthor }}</div>
+      <div class="point">총점 : {{ getPostTotalPoint }}</div>
+      <div class="point">평균 : {{ getPostAveragePoint }}</div>
     </div>
     <div class="post-title-wrap">
-      <h2 class="post-title">{{ getPostTitle }}</h2>
+      <h2 class="post-title" @click="goPostContent">{{ getPostTitle }}</h2>
     </div>
     <div class="open-point-wrap" :style="computedStyleOpenPostPoint">
       <button class="open-btn" @click="openPointWrap">
-        이 글은 얼마나 과학미스럽나요?
+        {{ getOpenPointWrapButtonTitle }}
       </button>
     </div>
     <div class="point-wrap" :style="computedStyle">
@@ -115,14 +117,16 @@
       </label>
       <div class="post-point-result">
         <div class="post-point-user">내 점수 : {{ post.point }}</div>
-        <button class="post-point-submit">평가하기</button>
+        <button class="post-point-submit" @click="postPointSubmit">
+          평가하기
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "post-list-item",
@@ -131,6 +135,7 @@ export default {
   },
   data() {
     return {
+      postLastPoint: -1,
       postInfo: null,
       post: {
         point: 0
@@ -176,16 +181,31 @@ export default {
   created() {
     if (this.postID != undefined) {
       this.getPostInfo();
+      this.setPoint();
     }
   },
   watch: {
     postID() {
       if (this.postID != undefined) {
         this.getPostInfo();
+        this.setPoint();
       }
     }
   },
   computed: {
+    ...mapGetters(["getUser"]),
+    getOpenPointWrapButtonTitle() {
+      if (!this.getUser.isAuth) {
+        return "로그인하고 이 글 평가하기";
+      }
+      if (this.getUser.uid === this.getPostAuthor) {
+        return "이 글이 내 글이다!";
+      }
+      if (this.postLastPoint >= 0) {
+        return "내 점수 : " + this.postLastPoint;
+      }
+      return "이 글은 얼마나 과학미스럽나요?";
+    },
     computedStyleOpenPostPoint() {
       return {
         height: this.openPostPointStyle.height,
@@ -262,10 +282,59 @@ export default {
         return "과학미";
       }
       return this.postInfo.author;
+    },
+    getPostTotalPoint() {
+      if (this.postInfo == null) {
+        return 0;
+      }
+      return this.postInfo.totalPoint;
+    },
+    getPostAveragePoint() {
+      if (this.postInfo == null) {
+        return 0;
+      }
+      return this.postInfo.averagePoint.toFixed(2);
+    },
+    getPostPointClass() {
+      if (this.getPostAveragePoint == 5.0) {
+        return '"미 - 과학의 아름다움을 일깨워주는 글!"';
+      } else if (this.getPostAveragePoint > 3) {
+        return '"학 - 과학을 배우는 재미를 알려주는 글!"';
+      }
+      return '"과 - 일단 한 글자부터 시작하는 글!"';
     }
   },
   methods: {
-    ...mapActions(["postGet"]),
+    ...mapActions([
+      "postGet",
+      "pointGet",
+      "pointPost",
+      "setNotice",
+      "pointGet"
+    ]),
+    async setPoint() {
+      if (this.getUser.uid) {
+        const point = await this.pointGet({
+          postID: this.postID,
+          uid: this.getUser.uid
+        });
+        this.postLastPoint = point.point;
+        return;
+      }
+      this.postLastPoint = -1;
+    },
+    async postPointSubmit() {
+      const pointResponse = await this.pointPost({
+        postID: this.postID,
+        uid: this.getUser.uid,
+        point: parseInt(this.post.point)
+      });
+      this.getPostInfo();
+      if (pointResponse.isSuccess) {
+        await this.setPoint();
+      }
+      this.closePointWrap();
+    },
     async getPostInfo() {
       if (this.postID != undefined) {
         const res = await this.postGet({ postID: this.postID });
@@ -289,6 +358,63 @@ export default {
       this.label[n].color = "#000000";
     },
     openPointWrap() {
+      if (!this.getUser.isAuth) {
+        this.setNotice({
+          state: true,
+          title: "로그인",
+          body: "로그인하면 이 글이 얼마나 과학미스러운지 평가할 수 있습니다!",
+          button: "확인",
+          style: {
+            height: "100%",
+            display: "inline-block"
+          }
+        });
+        return;
+      }
+      if (this.getUser.uid === this.getPostAuthor) {
+        this.setNotice({
+          state: true,
+          title: "이 글이 내 글이다!",
+          body:
+            "현재 과학미 Point 총점 : " +
+            this.getPostTotalPoint +
+            "<br>" +
+            "현재 과학미 Point 평점 : " +
+            this.getPostAveragePoint +
+            "<br>" +
+            "과학미 평가 : " +
+            this.getPostPointClass,
+          button: "확인",
+          style: {
+            height: "100%",
+            display: "inline-block"
+          }
+        });
+        return;
+      }
+      if (this.postLastPoint >= 0) {
+        this.setNotice({
+          state: true,
+          title: "이 글의 과학미 점수는",
+          body:
+            "현재 과학미 Point 총점 : " +
+            this.getPostTotalPoint +
+            "<br>" +
+            "현재 과학미 Point 평점 : " +
+            this.getPostAveragePoint +
+            "<br>" +
+            "과학미 평가 : " +
+            this.getPostPointClass +
+            "<br>" +
+            this.getOpenPointWrapButtonTitle,
+          button: "확인",
+          style: {
+            height: "100%",
+            display: "inline-block"
+          }
+        });
+        return;
+      }
       this.openPostPointStyle.height = "0px";
       this.openPostPointStyle.padding = "0px";
       this.postPointStyle.height = "116px";
@@ -303,6 +429,10 @@ export default {
       this.postPointStyle.padding = "0px";
       this.postPointStyle.margin = "0px";
       this.postPointStyle.border = "none";
+    },
+    goPostContent() {
+      const path = "/posts/" + this.getCategory + "/" + this.postID;
+      this.$router.push(path);
     }
   }
 };
