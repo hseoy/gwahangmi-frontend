@@ -132,7 +132,6 @@ export default {
             }
           });
         } else {
-          console.log(res);
           this.clickNoticeClose();
           this.setNotice({
             state: true,

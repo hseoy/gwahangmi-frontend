@@ -123,9 +123,24 @@ export default {
   },
   /* RANK */
   userHighRankTop3(store, { users }) {
-    set.rank(store, RANK.TOP[0], users[0]);
-    set.rank(store, RANK.TOP[1], users[1]);
-    set.rank(store, RANK.TOP[2], users[2]);
+    if (users == null || users == undefined) {
+      return;
+    }
+    if (users.length > 0) {
+      set.rank(store, RANK.TOP[0], users[0]);
+    } else {
+      set.rank(store, RANK.TOP[0], "과학미");
+    }
+    if (users.length > 1) {
+      set.rank(store, RANK.TOP[1], users[1]);
+    } else {
+      set.rank(store, RANK.TOP[1], "과학미");
+    }
+    if (users.length > 2) {
+      set.rank(store, RANK.TOP[2], users[2]);
+    } else {
+      set.rank(store, RANK.TOP[2], "과학미");
+    }
   },
   /* PROFILE */
   async profileGetFile(store, { uid }) {

@@ -157,6 +157,9 @@ export default {
         average: false,
         sort: false
       });
+      if (res.posts == null) {
+        return;
+      }
       for (let i = 0; i < res.posts.length; i++) {
         this.postCube[parseInt(i / 3)][parseInt(i % 3)] = res.posts[i];
       }
