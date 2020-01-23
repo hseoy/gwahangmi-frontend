@@ -1,6 +1,6 @@
 <template>
   <div class="post-thumbnail">
-    <div class="thumbnail-wrap">
+    <div class="thumbnail-wrap" @click="goPostContent">
       <div class="thumbnail-img">
         <img :src="thumbnailImg" alt="thumbnail image" />
       </div>
@@ -86,6 +86,12 @@ export default {
       }
       return this.post.author;
     },
+    getPostCategory() {
+      if (this.post == null) {
+        return null;
+      }
+      return this.post.category;
+    },
     getPostAuthorRank() {
       if (this.postAuthorInfo == null) {
         return this.rank[0];
@@ -136,6 +142,22 @@ export default {
           uid: this.post.author
         });
       }
+    },
+    goPostContent() {
+      if (this.postID != undefined && this.getPostCategory != null) {
+        this.$router.push("/posts/" + this.getPostCategory + "/" + this.postID);
+        return;
+      }
+      this.setNotice({
+        state: true,
+        title: "로딩 중",
+        body: "글이 존재하지 않습니다. 조금만 기다려주세요",
+        button: "확인",
+        style: {
+          height: "100%",
+          display: "inline-block"
+        }
+      });
     }
   }
 };
