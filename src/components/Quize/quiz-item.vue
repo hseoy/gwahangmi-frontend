@@ -10,28 +10,28 @@
 
           <div class="quize-answers">
             <div class="quiz-answer-wrap" v-if="!clickAnswer">
-              <div class="quize-answer" @click="quizeAnswer(1)">
+              <div class="quize-answer" @click="quizeAnswer(getQuizAnswers[0])">
                 <div class="outter">
                   <div class="inner">
                     {{ getQuizAnswers[0] }}
                   </div>
                 </div>
               </div>
-              <div class="quize-answer" @click="quizeAnswer(2)">
+              <div class="quize-answer" @click="quizeAnswer(getQuizAnswers[1])">
                 <div class="outter">
                   <div class="inner">
                     {{ getQuizAnswers[1] }}
                   </div>
                 </div>
               </div>
-              <div class="quize-answer" @click="quizeAnswer(3)">
+              <div class="quize-answer" @click="quizeAnswer(getQuizAnswers[2])">
                 <div class="outter">
                   <div class="inner">
                     {{ getQuizAnswers[2] }}
                   </div>
                 </div>
               </div>
-              <div class="quize-answer" @click="quizeAnswer(4)">
+              <div class="quize-answer" @click="quizeAnswer(getQuizAnswers[3])">
                 <div class="outter">
                   <div class="inner">
                     {{ getQuizAnswers[3] }}
@@ -181,7 +181,7 @@ export default {
     checkAnswer() {},
     quizeAnswer(answer) {
       this.clickAnswer = true;
-      if (answer === this.rightAnswer) {
+      if (answer === this.getQuizRIghtAnswer) {
         this.pass = true;
       } else {
         this.pass = false;

@@ -27,7 +27,7 @@ import GwahangmiHeader from "../components/GwahangmiHeader/GwahangmiHeader.vue";
 import QuizItem from "../components/Quize/quiz-item.vue";
 
 export default {
-  name: "category",
+  name: "quiz",
   components: {
     "gwahangmi-header": GwahangmiHeader,
     "quiz-item": QuizItem
