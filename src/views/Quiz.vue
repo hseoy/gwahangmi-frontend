@@ -7,11 +7,15 @@
 
     <div class="content-wrap">
       <div class="content">
-        <quiz-item
+        <div
+          style="
+  width: 48%;
+  float: left;"
           v-for="quizID in this.quizIDs"
           :key="quizID"
-          :quizID="quizID"
-        />
+        >
+          <quiz-item :quizID="quizID" />
+        </div>
       </div>
     </div>
   </div>

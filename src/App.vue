@@ -22,7 +22,7 @@
       @click="openQuizEditor"
       v-if="computedQuizEditorTrigger"
     >
-      <span class="editor-trigger-text" data-title="나도 퀴즈 만들기">
+      <span class="editor-trigger-text" data-title="나도 퀴즈 만들기!">
         과학을 사랑한다면?
       </span>
     </button>

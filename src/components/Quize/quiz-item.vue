@@ -54,7 +54,7 @@
                         @click="goLogin"
                         v-if="!getIsAuth"
                       >
-                        로그인하고 해설 보러가기!
+                        로그인하고 해설 보기!
                       </a>
                       <a
                         href="javascript:void(0)"
@@ -62,7 +62,7 @@
                         @click="showExplan"
                         v-if="getIsAuth"
                       >
-                        해설 보러 가기!
+                        해설 보기!
                       </a>
                     </div>
                   </div>
@@ -174,9 +174,7 @@ export default {
   },
   methods: {
     ...mapActions(["quizGet"]),
-    checkAnswer() {
-      console.log("CHECK ANSWER");
-    },
+    checkAnswer() {},
     quizeAnswer(answer) {
       if (answer === this.rightAnswer) {
         this.pass = true;
