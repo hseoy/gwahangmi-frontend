@@ -170,12 +170,14 @@ export default {
       return this.getUser.point + " - Rank:미";
     },
     getUploadProfileImage() {
-      if (this.getUser.profileImg === "profile_default_gwahangmi.jpg") {
-        return "https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008";
-      }
-      if (this.uploadProfileImage === "") {
+      if (
+        this.uploadProfileImage === "" &&
+        this.getUser.profileImg != "profile_default_gwahangmi.jpg"
+      ) {
         const res = this.profileGetFile({ uid: this.getUID });
         this.promiseProfileImgFileData(res);
+      } else if (this.uploadProfileImage === "") {
+        return "https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/p960x960/69894151_376374273281275_8676602144360497152_o.jpg?_nc_cat=111&_nc_ohc=YR94sK98E_oAQn_OfCxwcNEXMdp15IwHkHXTHCji96X48vHBFFf2R5kfg&_nc_ht=scontent-lax3-2.xx&oh=d25ff31a79d60fd75ffa83851098f98c&oe=5E9B3008";
       }
       return this.uploadProfileImage;
     }
