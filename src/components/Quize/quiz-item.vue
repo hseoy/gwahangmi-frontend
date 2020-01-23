@@ -9,7 +9,7 @@
           </div>
 
           <div class="quize-answers">
-            <div class="quiz-answer-wrap" v-if="!pass">
+            <div class="quiz-answer-wrap" v-if="!clickAnswer">
               <div class="quize-answer" @click="quizeAnswer(1)">
                 <div class="outter">
                   <div class="inner">
@@ -39,13 +39,14 @@
                 </div>
               </div>
             </div>
-            <div class="quize-pass" v-if="pass">
+            <div class="quize-pass" v-if="clickAnswer">
               <div class="outter">
                 <div class="inner">
                   <div v-if="!getExlanCheck">
                     <h1 class="pass-title">
-                      정답입니다!
-                      <span v-if="getIsAuth">+{{ getQuizPoint }}</span>
+                      <span v-if="pass">정답입니다!</span>
+                      <span v-if="!pass">틀렸습니다!</span>
+                      <span v-if="getIsAuth && pass">+{{ getQuizPoint }}</span>
                     </h1>
                     <div class="quize-login-wrap">
                       <a
@@ -54,7 +55,8 @@
                         @click="goLogin"
                         v-if="!getIsAuth"
                       >
-                        로그인하고 해설 보기!
+                        <span v-if="pass">로그인하고 해설 보기!</span>
+                        <span v-if="!pass">로그인하고 다시 풀어보기!</span>
                       </a>
                       <a
                         href="javascript:void(0)"
@@ -62,7 +64,8 @@
                         @click="showExplan"
                         v-if="getIsAuth"
                       >
-                        해설 보기!
+                        <span v-if="pass">해설 보기!</span>
+                        <span v-if="!pass">다시 풀어보기!</span>
                       </a>
                     </div>
                   </div>
@@ -92,6 +95,7 @@ export default {
       quizInfo: null,
       rightAnswer: 1,
       pass: false,
+      clickAnswer: false,
       explanCheck: false
     };
   },
@@ -176,6 +180,7 @@ export default {
     ...mapActions(["quizGet"]),
     checkAnswer() {},
     quizeAnswer(answer) {
+      this.clickAnswer = true;
       if (answer === this.rightAnswer) {
         this.pass = true;
       } else {
@@ -192,6 +197,10 @@ export default {
       this.$router.push("login");
     },
     showExplan() {
+      if (!this.pass) {
+        this.clickAnswer = false;
+        return;
+      }
       this.explanCheck = true;
     }
   }
