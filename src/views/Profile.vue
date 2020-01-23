@@ -104,9 +104,9 @@
                   type="password"
                   v-model="user.pw"
                   class="profile-input"
-                  title="PW를 입력해주세요"
+                  title="정보수정을 위한 PW 확인"
                   autocomplete="off"
-                  placeholder="PW를 입력해주세요"
+                  placeholder="정보수정을 위한 PW 확인"
                 />
               </div>
               <div class="profile-box button">
