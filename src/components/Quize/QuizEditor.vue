@@ -324,7 +324,6 @@ export default {
   methods: {
     ...mapActions(["preUploadQuiz", "setNotice"]),
     quizCreate() {
-      console.log(this.quiz.rightAnswer.value);
       this.preUploadQuiz({
         title: this.quiz.title,
         answers: this.quiz.answers,
