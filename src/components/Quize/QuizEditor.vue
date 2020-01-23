@@ -81,6 +81,7 @@
             class="quiz-explanation"
           ></textarea>
         </div>
+        <!--
         <div class="quiz-answer-input-wrap point">
           <div
             class="quiz-answer-num num1"
@@ -118,6 +119,7 @@
             5
           </div>
         </div>
+        -->
       </div>
       <div class="quiz-upload-button-wrap">
         <div class="outter">
