@@ -75,9 +75,11 @@
               >과학퀴즈</a
             >
           </div>
+          <!--
           <div class="item-wrap">
-            <a class="gnb-item" href="#">과학토론</a>
+            <a class="gnb-item" href="javascript:void(0)">과학토론</a>
           </div>
+          -->
         </div>
       </nav>
     </div>
