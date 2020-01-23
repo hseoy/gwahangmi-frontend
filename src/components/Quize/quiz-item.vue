@@ -46,7 +46,7 @@
                     <h1 class="pass-title">
                       <span v-if="pass">정답입니다!</span>
                       <span v-if="!pass">틀렸습니다!</span>
-                      <span v-if="getIsAuth && pass">+{{ getQuizPoint }}</span>
+                      <!--<span v-if="getIsAuth && pass">+{{ getQuizPoint }}</span>-->
                     </h1>
                     <div class="quize-login-wrap">
                       <a
