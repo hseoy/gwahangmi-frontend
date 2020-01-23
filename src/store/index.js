@@ -46,6 +46,15 @@ const state = {
       content: ""
     },
     upload: false
+  },
+  quiz: {
+    pre: {
+      title: "",
+      answers: ["", "", "", ""],
+      rightAnswer: "",
+      explanation: ""
+    },
+    upload: false
   }
 };
 

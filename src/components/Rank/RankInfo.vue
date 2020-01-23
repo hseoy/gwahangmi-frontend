@@ -31,6 +31,12 @@ export default {
   },
   watch: {
     $route: "fetchData",
+    computedQuizUploadCheck() {
+      if (this.getUser.uid === this.getUID) {
+        this.fetchData();
+        this.setQuizUpload({ upload: false });
+      }
+    },
     computedUploadCheck() {
       if (this.getUser.uid === this.getUID) {
         this.fetchData();
@@ -39,9 +45,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getUser", "getPost"]),
+    ...mapGetters(["getUser", "getPost", "getQuiz"]),
     computedUploadCheck() {
       return this.getPost.upload;
+    },
+    computedQuizUploadCheck() {
+      return this.getQuiz.upload;
     },
     getUID() {
       if (this.userInfo == null) {
@@ -69,7 +78,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["getUserInfoJust", "setUpload"]),
+    ...mapActions(["getUserInfoJust", "setUpload", "setQuizUpload"]),
     async fetchData() {
       this.userInfo = await this.getUserInfoJust({ uid: this.uid });
     }

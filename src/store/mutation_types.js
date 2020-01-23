@@ -34,3 +34,12 @@ export const POST = {
   },
   UPLOAD: "POST_UPLOAD"
 };
+export const QUIZ = {
+  PRE: {
+    TITLE: "QUIZ_PRE_TITLE",
+    ANSWERS: "QUIZ_PRE_ANSWERS",
+    RIGHT_ANSWER: "QUIZ_PRE_RIGHT_ANSWER",
+    EXPLANATION: "QUIZ_PRE_EXPLANATION"
+  },
+  UPLOAD: "QUIZ_UPLOAD"
+};

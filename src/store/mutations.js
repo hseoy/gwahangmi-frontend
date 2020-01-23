@@ -76,5 +76,21 @@ export default {
   },
   [types.POST.UPLOAD](state, upload) {
     state.post.upload = upload;
+  },
+  /* QUIZ */
+  [types.QUIZ.PRE.TITLE](state, title) {
+    state.quiz.pre.title = title;
+  },
+  [types.QUIZ.PRE.ANSWERS](state, answers) {
+    state.quiz.pre.answers = answers;
+  },
+  [types.QUIZ.PRE.RIGHT_ANSWER](state, rightAnswer) {
+    state.quiz.pre.rightAnswer = rightAnswer;
+  },
+  [types.QUIZ.PRE.EXPLANATION](state, explanation) {
+    state.quiz.pre.explanation = explanation;
+  },
+  [types.QUIZ.UPLOAD](state, upload) {
+    state.quiz.upload = upload;
   }
 };

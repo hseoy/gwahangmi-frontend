@@ -8,6 +8,7 @@ import Profile from "../views/Profile.vue";
 import Category from "../views/Category.vue";
 import postContent from "../views/PostContent.vue";
 import Rank from "../views/Rank.vue";
+import Quiz from "../views/Quiz.vue";
 
 Vue.use(VueRouter);
 
@@ -52,6 +53,11 @@ const routes = [
     path: "/rank",
     name: "rank",
     component: Rank
+  },
+  {
+    path: "/quiz",
+    name: "quiz",
+    component: Quiz
   }
 ];
 

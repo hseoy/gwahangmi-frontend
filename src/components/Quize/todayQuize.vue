@@ -34,7 +34,12 @@
                   >
                     로그인하고 더 많은 거 보러 가기!
                   </a>
-                  <a href="#" class="quize-login" v-if="getIsAuth">
+                  <a
+                    href="javascript:void(0)"
+                    @click="goQuiz"
+                    class="quize-login"
+                    v-if="getIsAuth"
+                  >
                     더 많은 거 보러 가기!
                   </a>
                 </div>
@@ -103,12 +108,15 @@ export default {
       }
     },
     goLogin() {
-      this.$router.push("login");
+      this.$router.push("/login");
+    },
+    goQuiz() {
+      this.$router.push("/quiz");
     }
   }
 };
 </script>
 
 <style lang="scss">
-@import "@/styles/gwahangmi/quize/today-quize.scss";
+@import "@/styles/gwahangmi/quiz/today-quize.scss";
 </style>

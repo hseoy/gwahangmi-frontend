@@ -71,7 +71,9 @@
             >
           </div>
           <div class="item-wrap">
-            <a class="gnb-item" href="#">과학퀴즈</a>
+            <a class="gnb-item" href="javascript:void(0)" @click="goQuiz"
+              >과학퀴즈</a
+            >
           </div>
           <div class="item-wrap">
             <a class="gnb-item" href="#">과학토론</a>
@@ -166,6 +168,12 @@ export default {
         return;
       }
       this.$router.push("/");
+    },
+    goQuiz() {
+      if (this.$route.name === "quiz") {
+        return;
+      }
+      this.$router.push("/quiz");
     }
   }
 };

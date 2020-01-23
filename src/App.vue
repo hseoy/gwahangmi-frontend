@@ -8,12 +8,22 @@
     <gwahangmi-footer />
 
     <button
-      class="editor-trigger"
+      class="editor-trigger post"
       @click="openPostEditor"
       v-if="computedEditorTrigger"
     >
       <span class="editor-trigger-text" data-title="나도 글쓰기!">
         과학을 좋아한다면?
+      </span>
+    </button>
+
+    <button
+      class="editor-trigger quiz"
+      @click="openQuizEditor"
+      v-if="computedQuizEditorTrigger"
+    >
+      <span class="editor-trigger-text" data-title="나도 퀴즈 만들기">
+        과학을 사랑한다면?
       </span>
     </button>
 
@@ -23,29 +33,39 @@
       :display="computedEditorDisplay"
       v-on:close-editor="closePostEditor"
     />
+    <quiz-editor
+      v-if="getIsAuth"
+      :height="computedQuizEditorHeight"
+      :display="computedQuizEditorDisplay"
+      v-on:close-editor="closeQuizEditor"
+    />
     <gwahangmi-notice />
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import GwahangmiNotice from "@/components/GwahangmiNotice/GwahangmiNotice.vue";
 import GwahangmiFooter from "@/components/GwahangmiFooter/GwahangmiFooter.vue";
 import PostEditor from "@/components/Posts/PostEditor.vue";
-import GwahangmiNotice from "@/components/GwahangmiNotice/GwahangmiNotice.vue";
-
-import { mapGetters } from "vuex";
+import QuizEditor from "./components/Quize/QuizEditor.vue";
 
 export default {
   name: "App",
   components: {
     "gwahangmi-footer": GwahangmiFooter,
     "post-editor": PostEditor,
+    "quiz-editor": QuizEditor,
     "gwahangmi-notice": GwahangmiNotice
   },
   data() {
     return {
       editorHeight: "0%",
       editorDisplay: "none",
-      isEditorOpen: false
+      isEditorOpen: false,
+      quizEditorHeight: "0%",
+      quizEditorDisplay: "none",
+      isQuizEditorOpen: false
     };
   },
   computed: {
@@ -59,12 +79,34 @@ export default {
     computedEditorDisplay() {
       return this.editorDisplay;
     },
+    computedQuizEditorHeight() {
+      return this.quizEditorHeight;
+    },
+    computedQuizEditorDisplay() {
+      return this.quizEditorDisplay;
+    },
     computedEditorTrigger() {
       if (this.getIsAuth) {
         if (
           this.$route.path === "/profile" ||
           this.$route.path === "/login" ||
-          this.$route.path === "/signup"
+          this.$route.path === "/signup" ||
+          this.$route.path === "/quiz"
+        ) {
+          return false;
+        }
+        return true;
+      }
+      return false;
+    },
+    computedQuizEditorTrigger() {
+      if (this.getIsAuth) {
+        if (
+          !(
+            this.$route.path === "/" ||
+            this.$route.path === "/rank" ||
+            this.$route.path === "/quiz"
+          )
         ) {
           return false;
         }
@@ -82,10 +124,20 @@ export default {
       this.editorDisplay = "display: inline-block";
       this.isEditorOpen = true;
     },
+    openQuizEditor() {
+      this.quizEditorHeight = "height: 100%";
+      this.quizEditorDisplay = "display: inline-block";
+      this.isQuizEditorOpen = true;
+    },
     closePostEditor() {
       this.editorHeight = "height: 0%";
       this.editorDisplay = "display: none";
       this.isEditorOpen = false;
+    },
+    closeQuizEditor() {
+      this.quizEditorHeight = "height: 0%";
+      this.quizEditorDisplay = "display: none";
+      this.isquizEditorOpen = false;
     },
     goHome() {
       this.$router.push({ name: "home" });
@@ -122,11 +174,17 @@ export default {
   height: 50px;
   position: fixed;
   top: 50%;
-  right: 50px;
   margin-top: -25px;
   perspective: 400px;
   background-color: transparent;
   -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(50%, transparent), to(rgba(255, 255, 255, 0.3)));
+
+  &.post {
+    right: 50px;
+  }
+  &.quiz {
+    left: 50px;
+  }
 
   span {
     display: block;

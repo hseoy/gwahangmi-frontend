@@ -1,6 +1,6 @@
 import api from "../service";
 
-import { USER, RANK, NOTICE, POST } from "./mutation_types";
+import { USER, RANK, NOTICE, POST, QUIZ } from "./mutation_types";
 
 const set = {
   user: ({ commit }, mutationType, data) => {
@@ -10,6 +10,9 @@ const set = {
     commit(mutationType, data);
   },
   post: ({ commit }, mutationType, data) => {
+    commit(mutationType, data);
+  },
+  quiz: ({ commit }, mutationType, data) => {
     commit(mutationType, data);
   },
   notice: ({ commit }, mutationType, data) => {
@@ -63,6 +66,9 @@ const setNotice = (store, state, title, body, button, style) => {
 
 const setUpload = (store, upload) => {
   set.post(store, POST.UPLOAD, upload);
+};
+const setQuizUpload = (store, upload) => {
+  set.quiz(store, QUIZ.UPLOAD, upload);
 };
 
 export default {
@@ -228,6 +234,46 @@ export default {
   async pointPost(store, { postID, uid, point }) {
     const pointResponse = await api.point.post(postID, uid, point);
     return pointResponse;
+  },
+  /* QUIZZES */
+  preUploadQuiz(store, { title, answers, rightAnswer, explanation }) {
+    set.post(store, QUIZ.PRE.TITLE, title);
+    set.post(store, QUIZ.PRE.ANSWERS, answers);
+    set.post(store, QUIZ.PRE.RIGHT_ANSWER, rightAnswer);
+    set.post(store, QUIZ.PRE.EXPLANATION, explanation);
+  },
+  setQuizUpload(store, { upload }) {
+    setQuizUpload(store, upload);
+  },
+  async quizzesGet(store, { limit, skip, point, participantCnt, sort }) {
+    const quizzesResponse = await api.quizzes.get(
+      limit,
+      skip,
+      point,
+      participantCnt,
+      sort
+    );
+    return quizzesResponse;
+  },
+  async quizzesPost(
+    store,
+    { author, title, explanation, answers, rightAnswer, point }
+  ) {
+    const quizzesResponse = await api.quizzes.post(
+      author,
+      title,
+      explanation,
+      answers,
+      rightAnswer,
+      point
+    );
+    setQuizUpload(store, true);
+    return quizzesResponse;
+  },
+  /* QUIZ */
+  async quizGet(store, { quizID }) {
+    const quizResponse = await api.quiz.get(quizID);
+    return quizResponse;
   },
   /* NOTICE */
   setNotice(store, { state, title, body, button, style }) {

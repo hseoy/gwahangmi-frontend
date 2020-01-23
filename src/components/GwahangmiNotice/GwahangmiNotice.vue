@@ -45,9 +45,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters(["getUser"]),
-    ...mapGetters(["getNotice"]),
-    ...mapGetters(["getPost"]),
+    ...mapGetters(["getUser", "getPost", "getQuiz", "getNotice"]),
     computedTitle() {
       return this.getNotice.title;
     },
@@ -80,18 +78,36 @@ export default {
     },
     getPreContent() {
       return this.getPost.pre.content;
+    },
+    getPreQuizTitle() {
+      return this.getQuiz.pre.title;
+    },
+    getPreQuizExplanation() {
+      return this.getQuiz.pre.explanation;
+    },
+    getPreQuizAnswers() {
+      return this.getQuiz.pre.answers;
+    },
+    getPreQuizRightAnswer() {
+      return this.getQuiz.pre.rightAnswer;
+    },
+    getPreQuizPoint() {
+      return this.getQuiz.pre.point;
     }
   },
   methods: {
-    ...mapActions(["setNotice"]),
-    ...mapActions(["login"]),
-    ...mapActions(["logout"]),
-    ...mapActions(["userLeave"]),
-    ...mapActions(["putUser"]),
-    ...mapActions(["profilePut"]),
-    ...mapActions(["postsPost"]),
-    ...mapActions(["userHighRankTop3"]),
-    ...mapActions(["usersGet"]),
+    ...mapActions([
+      "setNotice",
+      "login",
+      "logout",
+      "userLeave",
+      "putUser",
+      "profilePut",
+      "postsPost",
+      "userHighRankTop3",
+      "usersGet",
+      "quizzesPost"
+    ]),
     async noticeCheck() {
       if (
         this.computedTitle === "로그아웃" ||
@@ -112,8 +128,50 @@ export default {
         if (this.getUser.isAuth === true) {
           this.$router.push({ name: "home" });
         }
+      } else if (this.computedTitle === "나도 퀴즈 만들기!") {
+        var res = await this.quizzesPost({
+          author: this.getUID,
+          title: this.getPreQuizTitle,
+          explanation: this.getPreQuizExplanation,
+          answers: this.getPreQuizAnswers,
+          rightAnswer: this.getPreQuizRightAnswer,
+          point: this.getPreQuizPoint
+        });
+        if (res.isSuccess) {
+          this.clickNoticeClose();
+          this.setNotice({
+            state: true,
+            title: "생성 성공",
+            body: "퀴즈를 생성하는 데 성공했습니다. +5",
+            button: "확인",
+            style: {
+              height: "100%",
+              display: "inline-block"
+            }
+          });
+        } else {
+          this.clickNoticeClose();
+          this.setNotice({
+            state: true,
+            title: "업로드 실패",
+            body: "퀴즈를 생성하는 데 실패했습니다",
+            button: "확인",
+            style: {
+              height: "100%",
+              display: "inline-block"
+            }
+          });
+        }
+        res = await this.usersGet({
+          limit: 3,
+          point: true,
+          post: false,
+          sort: false
+        });
+        this.userHighRankTop3({ users: res.users });
+        return;
       } else if (this.computedTitle === "나도 글쓰기!") {
-        var res = await this.postsPost({
+        res = await this.postsPost({
           author: this.getUID,
           category: this.getPreCategory,
           title: this.getPreTitle,

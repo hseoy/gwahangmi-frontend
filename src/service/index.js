@@ -6,6 +6,8 @@ import profileAPI from "./profile";
 import postsAPI from "./posts";
 import postAPI from "./post";
 import pointAPI from "./point";
+import quizzesAPI from "./quizzes";
+import quizAPI from "./quiz";
 
 export default {
   /* SIGN */
@@ -120,6 +122,37 @@ export default {
     post: async (postID, uid, point) => {
       const pointResponse = await pointAPI.post(postID, uid, point);
       return pointResponse;
+    }
+  },
+  /* QUIZZES */
+  quizzes: {
+    async get(limit, skip, point, participantCnt, sort) {
+      const quizzesResponse = await quizzesAPI.get(
+        limit,
+        skip,
+        point,
+        participantCnt,
+        sort
+      );
+      return quizzesResponse;
+    },
+    async post(author, title, explanation, answers, rightAnswer, point) {
+      const quizzesResponse = await quizzesAPI.post(
+        author,
+        title,
+        explanation,
+        answers,
+        rightAnswer,
+        point
+      );
+      return quizzesResponse;
+    }
+  },
+  /* QUIZ */
+  quiz: {
+    get: async quizID => {
+      const quizResponse = await quizAPI.get(quizID);
+      return quizResponse;
     }
   }
 };
